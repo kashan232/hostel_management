@@ -13668,6 +13668,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   background-color: #fff;
   height: 100vh;
   transition: all .5s ease-in-out;
+  display:none;
   z-index: 9999; }
   .dlab-demo-panel .dlab-demo-trigger {
     position: absolute;
