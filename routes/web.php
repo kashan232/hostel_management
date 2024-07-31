@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\FloorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,13 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'home'])->middleware(['auth'])->name('home');
+
+Route::get('/floor-create', [FloorController::class, 'floor_create'])->name('floor-create');
+Route::get('/floors', [FloorController::class, 'floors'])->name('floors');
+
+
+Route::get('/room-create', [RoomController::class, 'room_create'])->name('room-create');
+Route::get('/rooms', [RoomController::class, 'rooms'])->name('rooms');
 
 
 Route::get('/dashboard', function () {
