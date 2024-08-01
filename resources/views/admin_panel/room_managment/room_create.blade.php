@@ -99,8 +99,24 @@
                                             <textarea class="form-control" name="room_description" placeholder="Enter a detailed description of the room"></textarea>
                                         </div>
                                     </div>
+                                    <!-- Charges Section -->
+                                    <div class="row">
+                                        <div class="mb-3 col-md-4">
+                                            <label class="form-label">Daily Charge (PKR)</label>
+                                            <input type="number" class="form-control" name="daily_charge" placeholder="Enter daily charge" required>
+                                        </div>
+                                        <div class="mb-3 col-md-4">
+                                            <label class="form-label">Monthly Charge (PKR)</label>
+                                            <input type="number" class="form-control" name="monthly_charge" placeholder="Enter monthly charge" required>
+                                        </div>
+                                        <div class="mb-3 col-md-4">
+                                            <label class="form-label">Yearly Charge (PKR)</label>
+                                            <input type="number" class="form-control" name="yearly_charge" placeholder="Enter yearly charge" required>
+                                        </div>
+                                    </div>
                                     <button type="submit" class="btn btn-primary">Add Room</button>
                                 </form>
+
 
 
                             </div>

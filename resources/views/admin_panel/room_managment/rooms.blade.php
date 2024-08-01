@@ -53,6 +53,9 @@
                                             <th>Amenities</th>
                                             <th>Occupancy Status</th>
                                             <th>Description</th>
+                                            <th>Daily Charge (PKR)</th>
+                                            <th>Monthly Charge (PKR)</th>
+                                            <th>Yearly Charge (PKR)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,6 +68,9 @@
                                             <td>AC, Wi-Fi</td>
                                             <td>Available</td>
                                             <td>Spacious single room with a nice view.</td>
+                                            <td>1000</td>
+                                            <td>25000</td>
+                                            <td>300000</td>
                                         </tr>
                                         <tr>
                                             <td>102</td>
@@ -75,6 +81,9 @@
                                             <td>AC, Wi-Fi, TV</td>
                                             <td>Occupied</td>
                                             <td>Cozy double room, perfect for two guests.</td>
+                                            <td>1500</td>
+                                            <td>35000</td>
+                                            <td>420000</td>
                                         </tr>
                                         <tr>
                                             <td>201</td>
@@ -85,6 +94,9 @@
                                             <td>AC, Wi-Fi, TV, Mini Bar</td>
                                             <td>Available</td>
                                             <td>Luxurious suite with a living area.</td>
+                                            <td>3000</td>
+                                            <td>80000</td>
+                                            <td>960000</td>
                                         </tr>
                                         <tr>
                                             <td>202</td>
@@ -95,6 +107,9 @@
                                             <td>AC, Wi-Fi</td>
                                             <td>Under Maintenance</td>
                                             <td>Single room currently under renovation.</td>
+                                            <td>1000</td>
+                                            <td>25000</td>
+                                            <td>300000</td>
                                         </tr>
                                         <tr>
                                             <td>301</td>
@@ -105,9 +120,13 @@
                                             <td>AC, Wi-Fi, TV, Balcony</td>
                                             <td>Occupied</td>
                                             <td>Comfortable double room with a balcony.</td>
+                                            <td>2000</td>
+                                            <td>50000</td>
+                                            <td>600000</td>
                                         </tr>
                                     </tbody>
                                 </table>
+
 
 
                             </div>

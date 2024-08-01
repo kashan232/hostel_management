@@ -15,7 +15,7 @@
     <!-- Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Page Title Here -->
-    <title>Akademi - Flask School and Education Management Admin Dashboard Template</title>
+    <title>HMS</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
     <link href="vendor/wow-master/css/libs/animate.css" rel="stylesheet">

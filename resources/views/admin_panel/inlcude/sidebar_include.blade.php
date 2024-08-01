@@ -9,6 +9,7 @@
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>
+                    
                     <span class="nav-text">Floors</span>
                 </a>
                 <ul aria-expanded="false">
@@ -36,11 +37,22 @@
                     <span class="nav-text">Guests</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="#">Manage Guests</a></li>
-                    <li><a href="#">Add Guests</a></li>
-
+                    <li><a href="{{ route('guests') }}">Manage Guests</a></li>
+                    <li><a href="{{ route('guest-create') }}">Add Guests</a></li>
                 </ul>
             </li>
+
+            <li>
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Service</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('services') }}">Manage Service</a></li>
+                    <li><a href="{{ route('services-create') }}">Add Service</a></li>
+                </ul>
+            </li>
+
         </ul>
     </div>
 </div>
