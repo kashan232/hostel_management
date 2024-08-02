@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,9 @@ Route::get('/guests', [GuestController::class, 'guests'])->name('guests');
 Route::get('/services-create', [ServiceController::class, 'services_create'])->name('services-create');
 Route::get('/services', [ServiceController::class, 'services'])->name('services');
 
+// Staff
+Route::get('/staff', [StaffController::class, 'staff'])->middleware(["auth"])->name('staff');
+Route::get('/staff-salary', [StaffController::class, 'staff_salary'])->middleware(["auth"])->name('staff-salary');
 
 
 Route::get('/dashboard', function () {

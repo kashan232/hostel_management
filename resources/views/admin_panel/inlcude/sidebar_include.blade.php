@@ -52,6 +52,18 @@
                     <li><a href="{{ route('services-create') }}">Add Service</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Staff Management</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('staff') }}">Staff</a></li>
+                    <li><a href="{{ route('staff-salary') }}">Staff Salary</a></li>
+                    <li><a href="{{ route('services') }}">Staff Payroll</a></li>
+                    {{-- <li><a href="{{ route('services-create') }}">Add Service</a></li> --}}
+                </ul>
+            </li>
 
         </ul>
     </div>
