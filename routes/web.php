@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\HomeController;
@@ -26,6 +27,17 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'home'])->middleware(['auth'])->name('home');
 
+// Staff
+Route::get('/staff', [StaffController::class, 'staff'])->middleware(["auth"])->name('staff');
+Route::post('/store-staff', [StaffController::class, 'store_staff'])->name('store-staff');
+Route::get('/staff-salary', [StaffController::class, 'staff_salary'])->middleware(["auth"])->name('staff-salary');
+
+// Admin
+Route::get('/Admin', [AdminController::class, 'Admin'])->middleware(["auth"])->name('Admin');
+Route::post('/store-Admin', [AdminController::class, 'store_Admin'])->name('store-Admin');
+Route::get('/Admin-salary', [AdminController::class, 'Admin_salary'])->middleware(["auth"])->name('Admin-salary');
+
+
 Route::get('/floor-create', [FloorController::class, 'floor_create'])->name('floor-create');
 Route::get('/floors', [FloorController::class, 'floors'])->name('floors');
 
@@ -40,10 +52,6 @@ Route::get('/guests', [GuestController::class, 'guests'])->name('guests');
 
 Route::get('/services-create', [ServiceController::class, 'services_create'])->name('services-create');
 Route::get('/services', [ServiceController::class, 'services'])->name('services');
-
-// Staff
-Route::get('/staff', [StaffController::class, 'staff'])->middleware(["auth"])->name('staff');
-Route::get('/staff-salary', [StaffController::class, 'staff_salary'])->middleware(["auth"])->name('staff-salary');
 
 
 Route::get('/dashboard', function () {
