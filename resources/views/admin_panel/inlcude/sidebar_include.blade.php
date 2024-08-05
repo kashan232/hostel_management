@@ -60,8 +60,6 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('staff') }}">Staff</a></li>
                     <li><a href="{{ route('staff-salary') }}">Staff Salary</a></li>
-                    <li><a href="{{ route('services') }}">Staff Payroll</a></li>
-                    {{-- <li><a href="{{ route('services-create') }}">Add Service</a></li> --}}
                 </ul>
             </li>
 
