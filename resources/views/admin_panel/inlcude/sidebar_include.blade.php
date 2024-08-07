@@ -9,13 +9,14 @@
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>
-                    <span class="nav-text">Manage Staff</span>
+                    <span class="nav-text">Staff</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('staff') }}">Staff</a></li>
                     <li><a href="{{ route('staff-salary') }}">Staff Salary</a></li>
                 </ul>
             </li>
+            
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>

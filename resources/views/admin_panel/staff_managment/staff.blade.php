@@ -58,40 +58,25 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($staffs as $staff)
                     <tr>
-                      <td>01</td>
-                      <td>soban</td>
-                      <td>soban</td>
-                      <td>sobanqureshi00@gmail.com</td>
-                      <td><span class="badge rounded-pill text-bg-info">Admin</span></td>
+                      <td>{{ $loop->iteration }}</td>
+                      <td>{{ $staff->username }}</td>
+                      <td>{{ $staff->name }}</td>
+                      <td>{{ $staff->email }}</td>
+                      <td><span class="badge rounded-pill text-bg-info">Staff</span></td>
                       <td>
                         <a href="javascript:void(0)" class="btn btn-primary edit_staff" data-name="soban" data-username="soban" data-email="sobanqureshi00@gmail.com">
                           <i class="fa fa-edit"></i>
                           Edit
                         </a>
-                        <a href="" class="btn btn-primary">
+                        <a href="" class="btn btn-danger">
                           <i class="fa fa-trash"></i>
                           Delete
                         </a>
                       </td>
                     </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Ali</td>
-                      <td>Ali</td>
-                      <td>Ali@gmail.com</td>
-                      <td><span class="badge rounded-pill text-bg-info">Staff</span></td>
-                      <td>
-                        <a href="javascript:void(0)" class="btn btn-primary edit_staff" data-name="Ali" data-username="Ali" data-email="Ali@gmail.com">
-                          <i class="fa fa-edit"></i>
-                          Edit
-                        </a>
-                        <a href="" class="btn btn-primary">
-                          <i class="fa fa-trash"></i>
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
 
@@ -115,7 +100,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="staffForm">
+        <form action="{{ route('store-staff') }}" method="POST">
+          @csrf
           <div class="mb-3">
             <label for="staffName" class="form-label">Name<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="staffName" name="name" required>
@@ -130,10 +116,7 @@
           </div>
           <div class="mb-3">
             <label for="staffRole" class="form-label">Role<span class="text-danger">*</span></label>
-            <select name="role" id="staffRole" class="form-control" required>
-              <option value="Staff">Staff</option>
-              <option value="Admin">Admin</option>
-            </select>
+            <input type="text" class="form-control" id="staffEmail" name="usertype" value="Staff" readonly>
           </div>
           <div class="mb-3">
             <label for="staffPassword" class="form-label">Password<span class="text-danger">*</span></label>

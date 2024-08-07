@@ -42,7 +42,8 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="/services/create" method="POST">
+                                <form action="{{ route('store-services') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Service Name</label>
@@ -55,8 +56,6 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">Add Service</button>
                                 </form>
-
-
                             </div>
                         </div>
                     </div>

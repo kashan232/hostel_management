@@ -32,13 +32,13 @@ Route::get('/staff', [StaffController::class, 'staff'])->middleware(["auth"])->n
 Route::post('/store-staff', [StaffController::class, 'store_staff'])->name('store-staff');
 Route::get('/staff-salary', [StaffController::class, 'staff_salary'])->middleware(["auth"])->name('staff-salary');
 
-// Admin
-Route::get('/Admin', [AdminController::class, 'Admin'])->middleware(["auth"])->name('Admin');
-Route::post('/store-Admin', [AdminController::class, 'store_Admin'])->name('store-Admin');
-Route::get('/Admin-salary', [AdminController::class, 'Admin_salary'])->middleware(["auth"])->name('Admin-salary');
+Route::get('/services-create', [ServiceController::class, 'services_create'])->name('services-create');
+Route::post('/store-services', [ServiceController::class, 'store_services'])->name('store-services');
+Route::get('/services', [ServiceController::class, 'services'])->name('services');
 
 
 Route::get('/floor-create', [FloorController::class, 'floor_create'])->name('floor-create');
+Route::post('/store-floor', [FloorController::class, 'store_floor'])->name('store-floor');
 Route::get('/floors', [FloorController::class, 'floors'])->name('floors');
 
 
@@ -49,9 +49,6 @@ Route::get('/rooms', [RoomController::class, 'rooms'])->name('rooms');
 
 Route::get('/guest-create', [GuestController::class, 'guest_create'])->name('guest-create');
 Route::get('/guests', [GuestController::class, 'guests'])->name('guests');
-
-Route::get('/services-create', [ServiceController::class, 'services_create'])->name('services-create');
-Route::get('/services', [ServiceController::class, 'services'])->name('services');
 
 
 Route::get('/dashboard', function () {

@@ -42,7 +42,8 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="/floors/create" method="POST">
+                                <form action="{{ route('store-floor') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Floor Name</label>
@@ -54,11 +55,11 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="mb-3 col-md-6">
+                                        <div class="mb-3 col-md-4">
                                             <label class="form-label">Number of Rooms</label>
                                             <input type="number" class="form-control" name="number_of_rooms" placeholder="Enter total number of rooms on this floor" required>
                                         </div>
-                                        <div class="mb-3 col-md-6">
+                                        <div class="mb-3 col-md-4">
                                             <label class="form-label">Floor Type</label>
                                             <select class="form-control" name="floor_type" required>
                                                 <option value="" disabled selected>Select floor type</option>
@@ -67,15 +68,15 @@
                                                 <option value="Mixed-Use">Mixed-Use</option>
                                             </select>
                                         </div>
+                                        <div class="mb-3 col-md-4">
+                                            <label class="form-label">Total Area (sq ft)</label>
+                                            <input type="number" class="form-control" name="total_area_sq_ft" placeholder="Enter total area in square feet" required>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Total Area (sq ft)</label>
-                                            <input type="number" class="form-control" name="total_area" placeholder="Enter total area in square feet" required>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
+                                        <div class="mb-3 col-md-12">
                                             <label class="form-label">Floor Description</label>
-                                            <textarea class="form-control" name="floor_description" placeholder="Enter a detailed description of the floor"></textarea>
+                                            <textarea class="form-control" rows="6" name="floor_description" placeholder="Enter a detailed description of the floor"></textarea>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Create Floor</button>

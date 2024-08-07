@@ -45,23 +45,30 @@
                                 <table id="example" class="display table">
                                     <thead>
                                         <tr>
+                                            <th>SNO</th>
                                             <th>Service Name</th>
                                             <th>Service Cost</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($services as $services)
                                         <tr>
-                                            <td>Food</td>
-                                            <td>2,400</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $services->service_name}}</td>
+                                            <td>{{ $services->amount}}</td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="btn btn-primary edit_staff" data-name="soban" data-username="soban" data-email="sobanqureshi00@gmail.com">
+                                                    <i class="fa fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                                <a href="#" class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                    Delete
+                                                </a>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>Breakfast</td>
-                                            <td>500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lunch</td>
-                                            <td>100</td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
 
