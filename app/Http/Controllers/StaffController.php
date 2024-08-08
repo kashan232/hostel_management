@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Staff;
+use App\Models\StaffSalary;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -64,12 +65,39 @@ class StaffController extends Controller
         if (Auth::id()) {
             $admin_id = Auth::id();
             $staffs = Staff::where('admin_id', '=', $admin_id)->get();
+            $salaries = StaffSalary::where('admin_id', '=', $admin_id)->get();
             // dd($staffs);
             return view('admin_panel.staff_managment.staff-salary', [
                 'staffs' => $staffs,
+                'salaries' => $salaries,
             ]);
         } else {
             return redirect()->back();
         }
     }
+
+    public function store_staff_salary(Request $request)
+    {
+        if (Auth::id()) {
+            $admin_id = Auth::id();
+
+            // Create the staff record
+            $salary = StaffSalary::create([
+                'admin_id' => $admin_id,
+                'staff' => $request->staff,
+                'date' => $request->date,
+                'year' => $request->year,
+                'month' => $request->month,
+                'amount' => $request->amount,
+                'status' => $request->status,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            return redirect()->back()->with('staff-added', 'Staff Salary Created Successfully');
+        } else {
+            return redirect()->back();
+        }
+    }
+
 }

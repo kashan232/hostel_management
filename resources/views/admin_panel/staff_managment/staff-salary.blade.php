@@ -60,14 +60,21 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($salaries as $salary)
                     <tr>
-                      <td>01</td>
-                      <td>soban</td>
-                      <td>2024</td>
-                      <td>July</td>
-                      <td>2024-7-21</td>
-                      <td>15000</td>
-                      <td><span class="badge rounded-pill text-bg-info">Paid</span></td>
+                      <td>{{ $loop->iteration }}</td>
+                      <td>{{ $salary->staff }}</td>
+                      <td>{{ $salary->year }}</td>
+                      <td>{{ $salary->month }}</td>
+                      <td>{{ $salary->date }}</td>
+                      <td>{{ $salary->amount }}</td>
+                      <td>
+                        @if($salary->status == 'Paid')
+                        <span class="badge rounded-pill text-bg-info">Paid</span>
+                        @else
+                        <span class="badge rounded-pill text-bg-danger">Unpaid</span>
+                        @endif
+                      </td>
                       <td>
                         <a href="javascript:void(0)" class="btn btn-primary edit_staff" data-name="soban" data-username="soban" data-email="sobanqureshi00@gmail.com">
                           <i class="fa fa-edit"></i>
@@ -75,21 +82,7 @@
                         </a>
                       </td>
                     </tr>
-                    <tr>
-                      <td>02</td>
-                      <td>Ali</td>
-                      <td>2024</td>
-                      <td>July</td>
-                      <td>2024-7-21</td>
-                      <td>20000</td>
-                      <td><span class="badge rounded-pill text-bg-info">Unpaid</span></td>
-                      <td>
-                        <a href="javascript:void(0)" class="btn btn-primary edit_staff" data-name="Ali" data-username="Ali" data-email="Ali@gmail.com">
-                          <i class="fa fa-edit"></i>
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -110,13 +103,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-
-        <form>
+        <form action="{{ route('store-staff-salary') }}" method="POST">
+          @csrf
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Select Staff<span class="text-danger">*</span></label>
             <select name="staff" id="staff" class="form-control">
               @foreach($staffs as $staff)
-              <option value="{{ $staff->id }}"> {{ $staff->name }} </option>
+              <option value="{{ $staff->name }}"> {{ $staff->name }} </option>
               @endforeach
             </select>
           </div>
@@ -127,19 +120,37 @@
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Select Year<span class="text-danger">*</span></label>
             <select name="year" id="year" class="form-control">
-              <option value="">2024</option>
-              <option value="">2023</option>
-              <option value="">2022</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
             </select>
+
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Select Moth<span class="text-danger">*</span></label>
             <select name="month" id="month" class="form-control">
               <option value="">Select Month</option>
-              <option value="">Jan</option>
-              <option value="">February</option>
-              <option value="">March</option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
             </select>
+
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Amount<span class="text-danger">*</span></label>
@@ -148,8 +159,8 @@
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Status<span class="text-danger">*</span></label>
             <select name="status" id="status" class="form-control">
-              <option value="">Paid</option>
-              <option value="">Unpaid</option>
+              <option value="Paid">Paid</option>
+              <option value="Unpaid">Unpaid</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>

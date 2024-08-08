@@ -45,6 +45,7 @@
                                 <table id="example" class="display table" style="min-width: 845px">
                                     <thead>
                                         <tr>
+                                            <th>SNO</th>
                                             <th>Room Number</th>
                                             <th>Floor Name</th>
                                             <th>Room Type</th>
@@ -59,71 +60,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($Rooms as $Room)
                                         <tr>
-                                            <td>101</td>
-                                            <td>Ground Floor</td>
-                                            <td>Single</td>
-                                            <td>1</td>
-                                            <td>150</td>
-                                            <td>AC, Wi-Fi</td>
-                                            <td>Available</td>
-                                            <td>Spacious single room with a nice view.</td>
-                                            <td>1000</td>
-                                            <td>25000</td>
-                                            <td>300000</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $Room->room_number }}</td>
+                                            <td>{{ $Room->floor_name }}</td>
+                                            <td>{{ $Room->room_type }}</td>
+                                            <td>{{ $Room->number_of_beds }}</td>
+                                            <td>{{ $Room->room_size }}</td>
+                                            <td>{{ $Room->room_amenities }}</td>
+                                            <td>{{ $Room->occupancy_status }}</td>
+                                            <td>{{ $Room->room_description }}</td>
+                                            <td>{{ $Room->daily_charge }}</td>
+                                            <td>{{ $Room->monthly_charge }}</td>
+                                            <td>{{ $Room->yearly_charge }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>102</td>
-                                            <td>First Floor</td>
-                                            <td>Double</td>
-                                            <td>2</td>
-                                            <td>200</td>
-                                            <td>AC, Wi-Fi, TV</td>
-                                            <td>Occupied</td>
-                                            <td>Cozy double room, perfect for two guests.</td>
-                                            <td>1500</td>
-                                            <td>35000</td>
-                                            <td>420000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>201</td>
-                                            <td>Second Floor</td>
-                                            <td>Suite</td>
-                                            <td>3</td>
-                                            <td>350</td>
-                                            <td>AC, Wi-Fi, TV, Mini Bar</td>
-                                            <td>Available</td>
-                                            <td>Luxurious suite with a living area.</td>
-                                            <td>3000</td>
-                                            <td>80000</td>
-                                            <td>960000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>202</td>
-                                            <td>Second Floor</td>
-                                            <td>Single</td>
-                                            <td>1</td>
-                                            <td>150</td>
-                                            <td>AC, Wi-Fi</td>
-                                            <td>Under Maintenance</td>
-                                            <td>Single room currently under renovation.</td>
-                                            <td>1000</td>
-                                            <td>25000</td>
-                                            <td>300000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>301</td>
-                                            <td>Third Floor</td>
-                                            <td>Double</td>
-                                            <td>2</td>
-                                            <td>220</td>
-                                            <td>AC, Wi-Fi, TV, Balcony</td>
-                                            <td>Occupied</td>
-                                            <td>Comfortable double room with a balcony.</td>
-                                            <td>2000</td>
-                                            <td>50000</td>
-                                            <td>600000</td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
 

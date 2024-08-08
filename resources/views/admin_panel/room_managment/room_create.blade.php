@@ -42,16 +42,16 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="/rooms/create" method="POST">
+                                <form action="{{ route('store-room') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Floor Name</label>
-                                            <select class="form-control" name="floor_id" required>
+                                            <select class="form-control" name="floor_name" required>
                                                 <option value="" disabled selected>Select floor</option>
-                                                <!-- Example options, replace with dynamic data -->
-                                                <option value="1">Ground Floor</option>
-                                                <option value="2">First Floor</option>
-                                                <option value="3">Second Floor</option>
+                                                @foreach($floors as $floor)
+                                                <option value="{{ $floor->floor_name }}">{{ $floor->floor_name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
@@ -77,7 +77,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Room Size (sq ft)</label>
-                                            <input type="number" class="form-control" name="room_size" placeholder="Enter room size in square feet" required>
+                                            <input type="text" class="form-control" name="room_size" placeholder="Enter room size in square feet" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Room Amenities</label>
@@ -116,9 +116,6 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">Add Room</button>
                                 </form>
-
-
-
                             </div>
                         </div>
                     </div>

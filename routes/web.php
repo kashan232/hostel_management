@@ -31,6 +31,7 @@ Route::get('/home', [HomeController::class, 'home'])->middleware(['auth'])->name
 Route::get('/staff', [StaffController::class, 'staff'])->middleware(["auth"])->name('staff');
 Route::post('/store-staff', [StaffController::class, 'store_staff'])->name('store-staff');
 Route::get('/staff-salary', [StaffController::class, 'staff_salary'])->middleware(["auth"])->name('staff-salary');
+Route::post('/store-staff-salary', [StaffController::class, 'store_staff_salary'])->name('store-staff-salary');
 
 Route::get('/services-create', [ServiceController::class, 'services_create'])->name('services-create');
 Route::post('/store-services', [ServiceController::class, 'store_services'])->name('store-services');
@@ -43,6 +44,7 @@ Route::get('/floors', [FloorController::class, 'floors'])->name('floors');
 
 
 Route::get('/room-create', [RoomController::class, 'room_create'])->name('room-create');
+Route::post('/store-room', [RoomController::class, 'store_room'])->name('store-room');
 Route::get('/rooms', [RoomController::class, 'rooms'])->name('rooms');
 
 
