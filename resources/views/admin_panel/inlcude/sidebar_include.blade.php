@@ -63,7 +63,28 @@
                 </ul>
             </li>
 
-           
+            <li>
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Expense</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('expense') }}">Manage Expense</a></li>
+                    <li><a href="{{ route('expense-create') }}">Add Expense</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Inventory</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('inventory') }}">Manage Inventory</a></li>
+                    <li><a href="{{ route('inventory-create') }}">Add Inventory</a></li>
+                </ul>
+            </li>
+
            
 
         </ul>
