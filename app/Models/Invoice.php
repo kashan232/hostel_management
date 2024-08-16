@@ -6,17 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Service extends Model
+class Invoice extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
-    protected $guarded = [];
-
-    // In Service.php
-    public function guestServices()
-    {
-        return $this->hasMany(GuestService::class);
-    }
     
+    protected $guarded = [];
 }

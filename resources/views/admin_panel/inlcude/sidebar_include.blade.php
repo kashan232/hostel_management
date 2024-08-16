@@ -66,6 +66,17 @@
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Invoice</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('guest-invoice') }}">Manage Invoice</a></li>
+                    <li><a href="#">Add Invoice</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
                     <span class="nav-text">Expense</span>
                 </a>
                 <ul aria-expanded="false">

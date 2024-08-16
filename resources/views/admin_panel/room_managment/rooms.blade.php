@@ -46,34 +46,32 @@
                                     <thead>
                                         <tr>
                                             <th>SNO</th>
-                                            <th>Room Number</th>
                                             <th>Floor Name</th>
+                                            <th>Room Number</th>
                                             <th>Room Type</th>
                                             <th>Number of Beds</th>
-                                            <th>Room Size (sq ft)</th>
                                             <th>Amenities</th>
-                                            <th>Occupancy Status</th>
-                                            <th>Description</th>
-                                            <th>Daily Charge (PKR)</th>
-                                            <th>Monthly Charge (PKR)</th>
-                                            <th>Yearly Charge (PKR)</th>
+                                            <th>Status</th>
+                                            <th>Charges</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($Rooms as $Room)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $Room->floor_id }}</td>
                                             <td>{{ $Room->room_number }}</td>
-                                            <td>{{ $Room->floor_name }}</td>
                                             <td>{{ $Room->room_type }}</td>
                                             <td>{{ $Room->number_of_beds }}</td>
-                                            <td>{{ $Room->room_size }}</td>
                                             <td>{{ $Room->room_amenities }}</td>
-                                            <td>{{ $Room->occupancy_status }}</td>
-                                            <td>{{ $Room->room_description }}</td>
-                                            <td>{{ $Room->daily_charge }}</td>
-                                            <td>{{ $Room->monthly_charge }}</td>
-                                            <td>{{ $Room->yearly_charge }}</td>
+                                            <td>
+                                                @if($Room->occupancy_status == 'Available')
+                                                    <span class="badge rounded-pill text-bg-info">{{ $Room->occupancy_status }}</span>
+                                                @else
+                                                    <span class="badge rounded-pill text-bg-danger">{{ $Room->occupancy_status }}</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $Room->room_charges }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

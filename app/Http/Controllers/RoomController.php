@@ -28,11 +28,11 @@ class RoomController extends Controller
     {
         if (Auth::id()) {
             $admin_id = Auth::id();
-
+            // dd($request);
             // Create the Service record
             $Floors = Room::create([
                 'admin_id' => $admin_id,
-                'floor_name' => $request->floor_name, // Ensure this is a string type in the database
+                'floor_id' => $request->floor_id, // Ensure this is a string type in the database
                 'room_number' => $request->room_number,
                 'room_type' => $request->room_type,
                 'number_of_beds' => $request->number_of_beds,
@@ -40,9 +40,7 @@ class RoomController extends Controller
                 'room_amenities' => $request->room_amenities,
                 'occupancy_status' => $request->occupancy_status,
                 'room_description' => $request->room_description,
-                'daily_charge' => $request->daily_charge,
-                'monthly_charge' => $request->monthly_charge,
-                'yearly_charge' => $request->yearly_charge,
+                'room_charges' => $request->room_charges,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
