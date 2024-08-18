@@ -1,4 +1,4 @@
-@include('admin_panel.inlcude.header_include')
+@include('guest_panel.inlcude.header_include')
 <!--*******************
         Preloader end
     ********************-->
@@ -9,7 +9,7 @@
     <!--**********************************
             Nav header start
         ***********************************-->
-    @include('admin_panel.inlcude.top_sidebar_include')
+    @include('guest_panel.inlcude.top_sidebar_include')
 
     <!--**********************************
             Nav header end
@@ -17,15 +17,15 @@
     <!--**********************************
             Header start
         ***********************************-->
-    @include('admin_panel.inlcude.navbar_include')
+    @include('guest_panel.inlcude.navbar_include')
     <!--**********************************
-            Header end 
+            Header end
         ***********************************-->
 
     <!--**********************************
             Sidebar start
         ***********************************-->
-    @include('admin_panel.inlcude.sidebar_include')
+    @include('guest_panel.inlcude.sidebar_include')
     <!--**********************************
             Sidebar end
         ***********************************-->
@@ -41,6 +41,20 @@
                             <h4 class="card-title">Guest Invoice</h4>
                         </div>
                         <div class="card-body">
+                            <div class="card-body">
+                                <p>Email: {{ $guest->email }}</p>
+                                <p>Mobile: {{ $guest->mobile }}</p>
+                                <p>Booking Date: {{ $guest->booking_date }}</p>
+                                <p>Floor: {{ $guest->floor->floor_name }}</p>
+                                <p>Room: {{ $guest->room->room_number }}</p>
+                                <p>Charges per Day: {{ $guest->room_charges }}</p>
+                                <p>Total Days: {{ $guest->lease_from->diffInDays($guest->lease_to) }}</p>
+                                <p>Total Service Charges: {{ $guest->total_service_charges }}</p>
+                                <p>Total Charges: {{ $guest->total_charges }}</p>
+                                <p>Lease From: {{ $guest->lease_from->toDateString() }}</p>
+                                <p>Lease To: {{ $guest->lease_to->toDateString() }}</p>
+                                <p>Status: {{ $guest->status }}</p>
+                            </div>
                             <div class="table-responsive">
                                 <table id="example" class="display table" style="min-width: 845px">
                                     <thead>
@@ -58,39 +72,7 @@
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach($guests as $guest)
-                                        <tr>
-                                            <td>{{ $guest->name }} <br> {{ $guest->email }} <br> {{ $guest->mobile }} </td>
-                                            <td>{{ $guest->booking_date }}</td>
-                                            <td>{{ $guest->floor->floor_name }}</td>
-                                            <td>{{ $guest->room->room_number }}</td>
-                                            <td>{{ $guest->room_charges }}</td>
-                                            <td>{{ $guest->total_charges }}</td>
-                                            <td>{{ $guest->lease_from }}</td>
-                                            <td>{{ $guest->lease_to }}</td>
-                                            <td>
-                                                @if($guest->status === 'Check-In')
-                                                <span class="badge bg-success">Checked In</span>
-                                                @else
-                                                <span class="badge bg-danger">Checked Out</span>
-                                                @endif
-
-                                            </td>
-                                            <td>
-                                                <!-- End Booking Button -->
-                                                @if($guest->status === 'Check-In')
-                                                <button class="btn btn-danger btn-sm end-booking-btn" data-guest-id="{{ $guest->id }}">End Booking</button>
-                                                @else
-                                                <span class="badge bg-danger">Checked Out</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('generate-invoice', $guest->id) }}" class="btn btn-danger btn-sm">Generate Invoice</a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
+                                    
                                 </table>
                             </div>
                         </div>
@@ -107,15 +89,15 @@
             Content body end
         ***********************************-->
 <!--**********************************
-			Footer start
-		***********************************-->
-@include('admin_panel.inlcude.copyright_include')
+   Footer start
+  ***********************************-->
+@include('guest_panel.inlcude.copyright_include')
 
 </div>
 <!--**********************************
         Scripts
     ***********************************-->
-@include('admin_panel.inlcude.footer_include')
+@include('guest_panel.inlcude.footer_include')
 
 <script>
     $(document).ready(function() {

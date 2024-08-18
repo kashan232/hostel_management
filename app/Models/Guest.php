@@ -24,11 +24,14 @@ class Guest extends Model
         return $this->belongsTo(Room::class, 'room_id');
     }
 
-    // In Guest.php
+    // // In Guest.php
+    // public function services()
+    // {
+    //     return $this->hasMany(GuestService::class);
+    // }
+
     public function services()
     {
-        return $this->hasMany(GuestService::class);
+        return $this->hasMany(GuestService::class, 'guest_id');
     }
-    
-    
 }

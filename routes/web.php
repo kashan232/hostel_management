@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\GuestDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceController;
@@ -64,6 +65,8 @@ Route::get('/guest-invoice', [InvoiceController::class, 'guest_invoice'])->name(
 Route::get('/generate-invoice/{guest_id}', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
 
 
+
+
 Route::get('/expense-create', [ExpenseController::class, 'expense_create'])->name('expense-create');
 Route::post('/store-expense', [ExpenseController::class, 'store_expense'])->name('store-expense');
 Route::get('/expense', [ExpenseController::class, 'expense'])->name('expense');
@@ -73,6 +76,11 @@ Route::get('/inventory-create', [InventoryController::class, 'inventory_create']
 Route::post('/store-inventory', [InventoryController::class, 'store_inventory'])->name('store-inventory');
 Route::get('/inventory', [InventoryController::class, 'inventory'])->name('inventory');
 
+
+
+// Guest routes
+
+Route::get('/invoice-of-guests', [GuestDashboardController::class, 'invoice_of_guests'])->name('invoice-of-guests');
 
 
 Route::get('/dashboard', function () {
