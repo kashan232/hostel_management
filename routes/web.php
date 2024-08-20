@@ -10,6 +10,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SeatSetupController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -52,10 +53,17 @@ Route::post('/store-room', [RoomController::class, 'store_room'])->name('store-r
 Route::get('/rooms', [RoomController::class, 'rooms'])->name('rooms');
 
 
+Route::get('/seat-setup-create', [SeatSetupController::class, 'seat_setup_create'])->name('seat-setup-create');
+Route::post('/store-seat-setup', [SeatSetupController::class, 'store_seat_setup'])->name('store-seat-setup');
+Route::get('/seat-setup', [SeatSetupController::class, 'seat_setup'])->name('seat-setup');
+Route::get('/get-rooms/{floorId}', [SeatSetupController::class, 'getRooms']);
+
+
 
 Route::get('/guest-create', [GuestController::class, 'guest_create'])->name('guest-create');
 Route::get('/guests', [GuestController::class, 'guests'])->name('guests');
 Route::get('/get-rooms', [GuestController::class, 'get_rooms'])->name('get-rooms');
+Route::get('/get-seats', [GuestController::class, 'getSeats'])->name('get-seats');
 Route::post('/store-guest', [GuestController::class, 'store_guest'])->name('store-guest');
 Route::post('/guest/add-service', [GuestController::class, 'addService'])->name('guest.addService');
 Route::post('/end-booking', [GuestController::class, 'endBooking'])->name('endBooking');

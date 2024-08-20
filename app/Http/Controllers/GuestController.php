@@ -6,6 +6,7 @@ use App\Models\Floor;
 use App\Models\Guest;
 use App\Models\GuestService;
 use App\Models\Room;
+use App\Models\Seat;
 use App\Models\Service;
 use App\Models\User;
 use Carbon\Carbon;
@@ -66,8 +67,21 @@ class GuestController extends Controller
 
     public function get_rooms(Request $request)
     {
-        $rooms = Room::where('floor_id', $request->floor_id)->where('occupancy_status', 'Available')->get(['id', 'room_number', 'room_charges']);
+        // Retrieve rooms with 'Available' or 'Partially Booked' statuses
+        $rooms = Room::where('floor_id', $request->floor_id)
+            ->whereIn('occupancy_status', ['Available', 'Partially Booked'])
+            ->get(['id', 'room_number', 'room_charges']);
+
         return response()->json($rooms);
+    }
+
+
+    public function getSeats(Request $request)
+    {
+        $roomId = $request->input('room_id');
+        $seats = Seat::where('room_id', $roomId)->get();
+
+        return response()->json($seats);
     }
 
     public function store_guest(Request $request)
@@ -88,6 +102,9 @@ class GuestController extends Controller
 
         $totalCharges = $roomCharges * $diffDays;
 
+        // Collect selected seat IDs from the request
+        $selectedSeats = $request->input('seats', []); // This should be an array of seat IDs
+
         // Create a new guest record
         $guest = Guest::create([
             'admin_id' => $admin_id,
@@ -102,6 +119,7 @@ class GuestController extends Controller
             'address' => $request->address,
             'floor_id' => $request->floor_id,
             'room_id' => $request->room_id,  // Store the selected room ID
+            'seats_id' => json_encode($selectedSeats), // Store the selected seat IDs as JSON
             'room_charges' => $roomCharges,  // Store the room charges
             'total_charges' => $totalCharges,
             'lease_from' => $request->lease_from,
@@ -111,10 +129,35 @@ class GuestController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        // Update the room occupancy status
-        Room::where('id', $request->room_id)
-            ->where('floor_id', $request->floor_id)
-            ->update(['occupancy_status' => 'Booked']);
+        // Update the room and seat statuses
+        $roomSeats = Seat::where('room_id', $request->room_id)->get();
+        $bookedSeatsCount = $selectedSeats;
+
+        // Update seat statuses
+        foreach ($roomSeats as $seat) {
+            if (in_array($seat->id, $bookedSeatsCount)) {
+                // Update seat status to 'Booked'
+                $seat->update(['status' => 'Booked']);
+            } else {
+                // Ensure remaining seats are available
+                $seat->update(['status' => 'Available']);
+            }
+        }
+
+        // Check if all seats in the room are booked
+        $totalSeats = $roomSeats->count();
+        $availableSeats = $roomSeats->where('status', 'Available')->count();
+
+        if ($totalSeats == 0) {
+            $occupancyStatus = 'Available';
+        } elseif ($availableSeats == 0) {
+            $occupancyStatus = 'Booked';
+        } else {
+            $occupancyStatus = 'Partially Booked';  // You can define this status if needed
+        }
+
+        // Update room occupancy status
+        Room::where('id', $request->room_id)->update(['occupancy_status' => $occupancyStatus]);
 
         // Create a new user
         $user = User::create([
@@ -173,9 +216,4 @@ class GuestController extends Controller
 
         return response()->json(['success' => false]);
     }
-
-
-
-   
-
 }

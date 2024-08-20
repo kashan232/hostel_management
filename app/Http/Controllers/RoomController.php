@@ -35,8 +35,6 @@ class RoomController extends Controller
                 'floor_id' => $request->floor_id, // Ensure this is a string type in the database
                 'room_number' => $request->room_number,
                 'room_type' => $request->room_type,
-                'number_of_beds' => $request->number_of_beds,
-                'room_size' => $request->room_size,
                 'room_amenities' => $request->room_amenities,
                 'occupancy_status' => $request->occupancy_status,
                 'room_description' => $request->room_description,

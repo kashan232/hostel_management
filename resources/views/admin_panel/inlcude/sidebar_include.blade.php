@@ -55,6 +55,19 @@
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Seat Setup</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('seat-setup') }}">Manage Seats</a></li>
+                    <li><a href="{{ route('seat-setup-create') }}">Add Seats</a></li>
+
+                </ul>
+            </li>
+
+
+            <li>
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
                     <span class="nav-text">Guests</span>
                 </a>
                 <ul aria-expanded="false">

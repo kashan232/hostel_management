@@ -70,16 +70,6 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">Number of Beds</label>
-                                            <input type="number" class="form-control" name="number_of_beds" placeholder="Enter number of beds" required>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Room Size (sq ft)</label>
-                                            <input type="text" class="form-control" name="room_size" placeholder="Enter room size in square feet" required>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
                                             <label class="form-label">Room Amenities</label>
                                             <textarea class="form-control" name="room_amenities" placeholder="List room amenities (e.g., AC, Wi-Fi, TV)"></textarea>
                                         </div>
