@@ -88,6 +88,12 @@
             </li>
 
             <li>
+                <a class="has-arrow" href="{{ route('admin-complains') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Complains</span>
+                </a>
+            </li>
+            <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>
                     <span class="nav-text">Expense</span>

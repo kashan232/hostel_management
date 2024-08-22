@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\GuestController;
@@ -73,6 +74,9 @@ Route::get('/guest-invoice', [InvoiceController::class, 'guest_invoice'])->name(
 Route::get('/generate-invoice/{guest_id}', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
 
 
+Route::get('/admin-complains', [HomeController::class, 'admin_complains'])->name('admin-complains');
+Route::get('/view-admin-complains/{id}', [HomeController::class, 'view_admin_complains'])->name('view-admin-complains');
+Route::post('/action-on-complaint', [HomeController::class, 'action_on_complaint'])->name('action-on-complaint');
 
 
 Route::get('/expense-create', [ExpenseController::class, 'expense_create'])->name('expense-create');
@@ -89,6 +93,13 @@ Route::get('/inventory', [InventoryController::class, 'inventory'])->name('inven
 // Guest routes
 
 Route::get('/invoice-of-guests', [GuestDashboardController::class, 'invoice_of_guests'])->name('invoice-of-guests');
+Route::get('/view-invoice/{guest_id}', [GuestDashboardController::class, 'view_invoice'])->name('view-invoice');
+
+
+Route::get('/complain-form', [ComplainController::class, 'complain_form'])->name('complain-form');
+Route::post('/store-complain', [ComplainController::class, 'store_complain'])->name('store-complain');
+Route::get('/complains', [ComplainController::class, 'complains'])->name('complains');
+
 
 
 Route::get('/dashboard', function () {

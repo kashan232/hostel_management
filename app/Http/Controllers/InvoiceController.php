@@ -49,7 +49,7 @@ class InvoiceController extends Controller
     public function generateInvoice($guest_id)
     {
         $guest = Guest::with('services')->findOrFail($guest_id);
-
+        // dd($guest);
         // Calculate the stay duration
         $leaseFrom = Carbon::parse($guest->lease_from);
         $leaseTo = Carbon::parse($guest->lease_to);

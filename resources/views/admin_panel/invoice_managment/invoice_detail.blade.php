@@ -2,36 +2,53 @@
 
 <style>
     @media print {
+
         /* Hide unnecessary elements */
-        .dlabnav, .nav-header, .header, .sidebar, .copyright, .btn-primary, .print-btn, .back-btn {
+        .dlabnav,
+        .nav-header,
+        .header,
+        .sidebar,
+        .copyright,
+        .btn-primary,
+        .print-btn,
+        .back-btn {
             display: none;
         }
+
         .content-body {
             margin: 0;
             padding: 10px;
         }
+
         .invoice-content {
             width: 100%;
             max-width: 800px;
             margin: auto;
         }
+
         .invoice-logo img {
             max-width: 100px;
         }
+
         .table {
             width: 100%;
             border-collapse: collapse;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             border: 1px solid #ddd;
             padding: 8px;
         }
+
         .table th {
             background-color: #f2f2f2;
         }
+
         .text-right {
             text-align: right;
         }
+
         .display-4 {
             font-size: 1.5rem;
             font-weight: bold;
@@ -85,6 +102,16 @@
                                                     <td>{{ $guest->floor->floor_name }}</td>
                                                     <td><strong>Room:</strong></td>
                                                     <td>{{ $guest->room->room_number }}</td>
+                                                    <td><strong>Seat:</strong></td>
+                                                    <td>
+                                                        @if($guest->seats->isNotEmpty())
+                                                        @foreach($guest->seats as $seat)
+                                                        {{ $seat->seat_name }}@if (!$loop->last), @endif
+                                                        @endforeach
+                                                        @else
+                                                        No seats assigned
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>Lease From:</strong></td>

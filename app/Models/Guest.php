@@ -34,4 +34,14 @@ class Guest extends Model
     {
         return $this->hasMany(GuestService::class, 'guest_id');
     }
+
+
+    public function getSeatsAttribute()
+    {
+        $seatIds = json_decode($this->seats_id, true); // Decode the JSON array
+        if (is_array($seatIds) && !empty($seatIds)) {
+            return Seat::whereIn('id', $seatIds)->get();
+        }
+        return collect(); // Return an empty collection if no seat IDs are found
+    }
 }

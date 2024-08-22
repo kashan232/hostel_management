@@ -86,7 +86,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('generate-invoice', $guest->id) }}" class="btn btn-danger btn-sm">View Invoice</a>
+                                                <a href="{{ route('view-invoice', $guest->id) }}" class="btn btn-danger btn-sm">View Invoice</a>
                                             </td>
                                         </tr>
                                     </tbody>

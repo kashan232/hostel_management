@@ -49,8 +49,8 @@
                             <select name="service_info" id="service_id" class="form-control" required>
                                 <option value="">--Select Service--</option>
                                 @foreach ($services as $service)
-                                    <option value="{{ $service->id }}|{{ $service->service_name }}"
-                                        data-amount="{{ $service->amount }}">{{ $service->service_name }}</option>
+                                <option value="{{ $service->id }}|{{ $service->service_name }}"
+                                    data-amount="{{ $service->amount }}">{{ $service->service_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -115,6 +115,7 @@
                                             <th>Booking Date</th>
                                             <th>Floor</th>
                                             <th>Room</th>
+                                            <th>Seat</th>
                                             <th>Room Charges</th>
                                             <th>Service Charges</th>
                                             <th>Total Charges</th>
@@ -127,47 +128,57 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($guests as $guest)
-                                            <tr>
-                                                <td>{{ $guest->name }} <br> {{ $guest->email }} <br>
-                                                    {{ $guest->mobile }} </td>
-                                                <td>{{ $guest->booking_date }}</td>
-                                                <td>{{ $guest->floor->floor_name }}</td>
-                                                <td>{{ $guest->room->room_number }}</td>
-                                                <td>{{ $guest->room_charges }}</td>
-                                                <td>{{ $guest->total_service_charges }}</td>
-                                                <td>{{ $guest->total_charges }}</td>
-                                                <td>{{ $guest->lease_from }}</td>
-                                                <td>{{ $guest->lease_to }}</td>
-                                                <td>
-                                                    @if ($guest->status === 'Check-In')
-                                                        <span class="badge bg-success">Checked In</span>
-                                                    @else
-                                                        <span class="badge bg-danger">Checked Out</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <!-- End Booking Button -->
-                                                    @if ($guest->status === 'Check-In')
-                                                        <button class="btn btn-danger btn-sm end-booking-btn"
-                                                            data-guest-id="{{ $guest->id }}">End Booking</button>
-                                                    @else
-                                                        <span class="badge bg-danger">Checked Out</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($guest->status === 'Check-Out')
-                                                        <span class="badge bg-primary">No Action</span>
-                                                    @else
-                                                        <a href="#" class="btn btn-primary">Edit</a>
-                                                        <a href="#" class="btn btn-success" data-bs-toggle="modal"
-                                                            data-bs-target="#addServiceModal"
-                                                            data-guest-id="{{ $guest->id }}">Add Service</a>
-                                                        <a href="#" class="btn btn-info" data-bs-toggle="modal"
-                                                            data-bs-target="#viewServicesModal"
-                                                            data-guest-id="{{ $guest->id }}">View Services</a>
-                                                    @endif
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td>{{ $guest->name }} <br> {{ $guest->email }} <br>
+                                                {{ $guest->mobile }}
+                                            </td>
+                                            <td>{{ $guest->booking_date }}</td>
+                                            <td>{{ $guest->floor->floor_name }}</td>
+                                            <td>{{ $guest->room->room_number }}</td>
+                                            <td>
+                                                @if($guest->seats->isNotEmpty())
+                                                @foreach($guest->seats as $seat)
+                                                {{ $seat->seat_name }}@if (!$loop->last), @endif
+                                                @endforeach
+                                                @else
+                                                No seats assigned
+                                                @endif
+                                            </td>
+                                            <td>{{ $guest->room_charges }}</td>
+                                            <td>{{ $guest->total_service_charges }}</td>
+                                            <td>{{ $guest->total_charges }}</td>
+                                            <td>{{ $guest->lease_from }}</td>
+                                            <td>{{ $guest->lease_to }}</td>
+                                            <td>
+                                                @if ($guest->status === 'Check-In')
+                                                <span class="badge bg-success">Checked In</span>
+                                                @else
+                                                <span class="badge bg-danger">Checked Out</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <!-- End Booking Button -->
+                                                @if ($guest->status === 'Check-In')
+                                                <button class="btn btn-danger btn-sm end-booking-btn"
+                                                    data-guest-id="{{ $guest->id }}">End Booking</button>
+                                                @else
+                                                <span class="badge bg-danger">Checked Out</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($guest->status === 'Check-Out')
+                                                <span class="badge bg-primary">No Action</span>
+                                                @else
+                                                <a href="#" class="btn btn-primary">Edit</a>
+                                                <a href="#" class="btn btn-success" data-bs-toggle="modal"
+                                                    data-bs-target="#addServiceModal"
+                                                    data-guest-id="{{ $guest->id }}">Add Service</a>
+                                                <a href="#" class="btn btn-info" data-bs-toggle="modal"
+                                                    data-bs-target="#viewServicesModal"
+                                                    data-guest-id="{{ $guest->id }}">View Services</a>
+                                                @endif
+                                            </td>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

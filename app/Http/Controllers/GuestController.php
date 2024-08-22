@@ -211,6 +211,14 @@ class GuestController extends Controller
             Room::where('id', $guest->room_id)
                 ->update(['occupancy_status' => 'Available']);
 
+            // Update the seats' status to Available
+            $seatIds = json_decode($guest->seats_id, true); // Decode the seats_id JSON array
+
+            if (is_array($seatIds) && !empty($seatIds)) {
+                Seat::whereIn('id', $seatIds)
+                    ->update(['status' => 'Available']);
+            }
+
             return response()->json(['success' => true]);
         }
 

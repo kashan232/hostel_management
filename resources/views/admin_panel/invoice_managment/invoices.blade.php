@@ -49,6 +49,7 @@
                                             <th>Booking Date</th>
                                             <th>Floor</th>
                                             <th>Room</th>
+                                            <th>Seat</th>
                                             <th>Charges</th>
                                             <th>Total Charges</th>
                                             <th>Lease From</th>
@@ -65,6 +66,15 @@
                                             <td>{{ $guest->booking_date }}</td>
                                             <td>{{ $guest->floor->floor_name }}</td>
                                             <td>{{ $guest->room->room_number }}</td>
+                                            <td>
+                                                @if($guest->seats->isNotEmpty())
+                                                @foreach($guest->seats as $seat)
+                                                {{ $seat->seat_name }}@if (!$loop->last), @endif
+                                                @endforeach
+                                                @else
+                                                No seats assigned
+                                                @endif
+                                            </td>
                                             <td>{{ $guest->room_charges }}</td>
                                             <td>{{ $guest->total_charges }}</td>
                                             <td>{{ $guest->lease_from }}</td>
