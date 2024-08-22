@@ -35,6 +35,12 @@ class Guest extends Model
         return $this->hasMany(GuestService::class, 'guest_id');
     }
 
+    // Guest.php
+
+    public function servicesinvoice()
+    {
+        return $this->hasMany(GuestService::class);
+    }
 
     public function getSeatsAttribute()
     {

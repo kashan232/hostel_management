@@ -14,7 +14,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('invoice-of-guests') }}">Manage Invoice</a></li>
-                    <li><a href="#">All Invoice</a></li>
+                    <li><a href="{{ route('invoices-paid-guest') }}">Padi Invoice</a></li>
                 </ul>
             </li>
 
@@ -27,6 +27,13 @@
                     <li><a href="{{ route('complain-form') }}">Register Complains</a></li>
                     <li><a href="{{ route('complains') }}">Complains</a></li>
                 </ul>
+            </li>
+
+            <li>
+                <a href="{{ route('geust-notices') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Notices</span>
+                </a>
             </li>
 
         </ul>

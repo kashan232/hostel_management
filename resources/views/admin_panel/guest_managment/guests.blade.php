@@ -158,15 +158,26 @@
                                             </td>
                                             <td>
                                                 <!-- End Booking Button -->
+                                                <!-- @if ($guest->status === 'Check-In')
+                                                
+                                                @else
+                                                <span class="badge bg-danger">Checked Out</span>
+                                                @endif -->
+
                                                 @if ($guest->status === 'Check-In')
                                                 <button class="btn btn-danger btn-sm end-booking-btn"
                                                     data-guest-id="{{ $guest->id }}">End Booking</button>
-                                                @else
-                                                <span class="badge bg-danger">Checked Out</span>
+                                                @elseif($guest->status == 'Check-Out')
+                                                <span class="btn btn-primary btn-sm">Check-Out</span>
+                                                @elseif($guest->status == 'Paid')
+                                                <span class="btn btn-success btn-sm">Paid</span>
                                                 @endif
+
                                             </td>
                                             <td>
                                                 @if ($guest->status === 'Check-Out')
+                                                <span class="badge bg-primary">No Action</span>
+                                                @elseif($guest->status == 'Paid')
                                                 <span class="badge bg-primary">No Action</span>
                                                 @else
                                                 <a href="#" class="btn btn-primary">Edit</a>

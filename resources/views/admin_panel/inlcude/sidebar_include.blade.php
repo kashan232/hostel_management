@@ -83,16 +83,28 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('guest-invoice') }}">Manage Invoice</a></li>
-                    <li><a href="#">Add Invoice</a></li>
+                    <li><a href="{{ route('invoices-paid') }}">Paid Invoice</a></li>
                 </ul>
             </li>
 
             <li>
-                <a class="has-arrow" href="{{ route('admin-complains') }}" aria-expanded="false">
+                <a href="{{ route('admin-complains') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>
                     <span class="nav-text">Complains</span>
                 </a>
             </li>
+
+            <li>
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-symbols-outlined">school</i>
+                    <span class="nav-text">Notices</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('notices') }}">Manage Notices</a></li>
+                    <li><a href="{{ route('notices-create') }}">Add Notices</a></li>
+                </ul>
+            </li>
+
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-symbols-outlined">school</i>

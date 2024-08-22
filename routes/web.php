@@ -9,6 +9,7 @@ use App\Http\Controllers\GuestDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SeatSetupController;
@@ -72,7 +73,8 @@ Route::post('/end-booking', [GuestController::class, 'endBooking'])->name('endBo
 
 Route::get('/guest-invoice', [InvoiceController::class, 'guest_invoice'])->name('guest-invoice');
 Route::get('/generate-invoice/{guest_id}', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
-
+Route::post('/store-payment/{invoice}', [InvoiceController::class, 'store_payment'])->name('store-payment');
+Route::get('/invoices-paid', [InvoiceController::class, 'showPaidInvoices'])->name('invoices-paid');
 
 Route::get('/admin-complains', [HomeController::class, 'admin_complains'])->name('admin-complains');
 Route::get('/view-admin-complains/{id}', [HomeController::class, 'view_admin_complains'])->name('view-admin-complains');
@@ -89,12 +91,18 @@ Route::post('/store-inventory', [InventoryController::class, 'store_inventory'])
 Route::get('/inventory', [InventoryController::class, 'inventory'])->name('inventory');
 
 
+Route::get('/notices-create', [NoticeController::class, 'notices_create'])->name('notices-create');
+Route::post('/store-notices', [NoticeController::class, 'store_notices'])->name('store-notices');
+Route::get('/notices', [NoticeController::class, 'notices'])->name('notices');
+
 
 // Guest routes
 
 Route::get('/invoice-of-guests', [GuestDashboardController::class, 'invoice_of_guests'])->name('invoice-of-guests');
 Route::get('/view-invoice/{guest_id}', [GuestDashboardController::class, 'view_invoice'])->name('view-invoice');
+Route::get('/invoices-paid-guest', [GuestDashboardController::class, 'invoices_paid_guest'])->name('invoices-paid-guest');
 
+Route::get('/geust-notices', [GuestDashboardController::class, 'geust_notices'])->name('geust-notices');
 
 Route::get('/complain-form', [ComplainController::class, 'complain_form'])->name('complain-form');
 Route::post('/store-complain', [ComplainController::class, 'store_complain'])->name('store-complain');

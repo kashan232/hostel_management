@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guest;
+use App\Models\Invoice;
+use App\Models\Notice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,6 +79,43 @@ class GuestDashboardController extends Controller
             'totalRoomCharges' => $totalRoomCharges,
             'totalServiceCharges' => $totalServiceCharges,
             'totalCharges' => $totalCharges
+        ]);
+    }
+
+    public function geust_notices()
+    {
+        if (Auth::id()) {
+            $admin_id = Auth::id();
+            $Notices = Notice::all();
+            // dd($services);
+            return view('guest_panel.notices_managment.notices', [
+                'Notices' => $Notices,
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function invoices_paid_guest()
+    {
+        // Get the guest ID from the authenticated user
+        $guest_id = Auth::user()->staff_id;
+
+        // Fetch paid invoices for the specific guest
+        $paidInvoices = Invoice::with(['guest', 'guest.servicesinvoice']) // Assuming 'servicesinvoice' is the relationship in the Guest model
+            ->where('guest_id', $guest_id) // Filter by guest ID
+            ->where('due_amount', 0) // Ensure the invoice is paid
+            ->get();
+
+        // Calculate total service charges and payable amount for each invoice
+        foreach ($paidInvoices as $invoice) {
+            $totalServiceCharges = $invoice->guest->servicesinvoice->sum('amount'); // Adjust based on actual relationship
+            $invoice->total_service_charges = $totalServiceCharges;
+            $invoice->total_payable = $invoice->guest->total_charges + $totalServiceCharges;
+        }
+
+        return view('guest_panel.invoices.paid_invoice', [
+            'paidInvoices' => $paidInvoices,
         ]);
     }
 }

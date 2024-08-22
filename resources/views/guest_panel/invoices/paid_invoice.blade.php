@@ -1,4 +1,4 @@
-@include('admin_panel.inlcude.header_include')
+@include('guest_panel.inlcude.header_include')
 <style>
     .receipt-content {
         font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
     <!--**********************************
             Nav header start
         ***********************************-->
-    @include('admin_panel.inlcude.top_sidebar_include')
+    @include('guest_panel.inlcude.top_sidebar_include')
 
     <!--**********************************
             Nav header end
@@ -33,7 +33,7 @@
     <!--**********************************
             Header start
         ***********************************-->
-    @include('admin_panel.inlcude.navbar_include')
+    @include('guest_panel.inlcude.navbar_include')
     <!--**********************************
             Header end 
         ***********************************-->
@@ -41,7 +41,7 @@
     <!--**********************************
             Sidebar start
         ***********************************-->
-    @include('admin_panel.inlcude.sidebar_include')
+    @include('guest_panel.inlcude.sidebar_include')
     <!--**********************************
             Sidebar end
         ***********************************-->
@@ -83,18 +83,18 @@
 
         <!-- Amount Details -->
         <div style="margin: 10px 20px; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 10px;">
+            <p style="margin: 5px 0; font-size: 14px; text-align: left;"><strong>Amount Paid:</strong> <span style="text-align: right; float: right;">{{ $invoice->amount_paid }}</span></p>
             <p style="margin: 5px 0; font-size: 14px; text-align: left;"><strong>Room Charges:</strong> <span style="text-align: right; float: right;">{{ $invoice->guest->room_charges }}</span></p>
             <p style="margin: 5px 0; font-size: 14px; text-align: left;"><strong>Total Charges:</strong> <span style="text-align: right; float: right;">{{ $invoice->guest->total_charges }}</span></p>
             <p style="margin: 5px 0; font-size: 14px; text-align: left;"><strong>Total Service Charges:</strong> <span style="text-align: right; float: right;">{{ $invoice->total_service_charges }}</span></p>
-            <p style="margin: 5px 0; font-size: 14px; text-align: left;"><strong>Amount Paid:</strong> <span style="text-align: right; float: right;">{{ $invoice->amount_paid }}</span></p>
             <p style="margin: 5px 0; font-size: 14px; text-align: left;"><strong>Total Payable Amount:</strong> <span style="text-align: right; float: right;">{{ $invoice->total_payable }}</span></p>
         </div>
 
         <!-- Footer -->
         <div style="margin: 10px 0; font-size: 12px; text-align: center;">
             <hr style="border: 0; border-top: 1px dashed #000; margin: 10px 0;">
-            <p style="margin: 5px 0;">Powered by <strong>Kashan Shaikh</strong></p>
-            <p style="margin: 5px 0;">Contact: <strong>03173859647</strong></p>
+            <p style="margin: 5px 0;">Powered by Kashan Shaikh</p>
+            <p style="margin: 5px 0;">Contact: 03173859647</p>
         </div>
     </div>
     @endforeach
@@ -177,13 +177,13 @@
 <!--**********************************
 			Footer start
 		***********************************-->
-@include('admin_panel.inlcude.copyright_include')
+@include('guest_panel.inlcude.copyright_include')
 
 </div>
 <!--**********************************
         Scripts
     ***********************************-->
-@include('admin_panel.inlcude.footer_include')
+@include('guest_panel.inlcude.footer_include')
 <script>
     function printReceipt(invoiceId) {
         // Get the receipt content
