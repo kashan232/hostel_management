@@ -14,7 +14,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('invoice-of-guests') }}">Manage Invoice</a></li>
-                    <li><a href="{{ route('invoices-paid-guest') }}">Padi Invoice</a></li>
+                    <li><a href="{{ route('invoices-paid-guest') }}">Paid Invoice</a></li>
                 </ul>
             </li>
 

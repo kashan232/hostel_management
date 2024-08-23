@@ -130,7 +130,6 @@
                                             <th>Total Service Charges</th> <!-- New Column -->
                                             <th>Total Payable Amount</th> <!-- New Column -->
                                             <th>Status</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -151,11 +150,7 @@
                                             <td>
                                                 <span class="badge bg-success">{{ $invoice->guest->status }}</span>
                                             </td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary btn-sm" onclick="printReceipt({{ $invoice->id }})">
-                                                    Print Receipt
-                                                </button>
-                                            </td>
+                                           
                                         </tr>
                                         @endforeach
                                     </tbody>
