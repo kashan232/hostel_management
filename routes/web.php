@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 // all code deploy
 // Github Connected
+// code deploy
 Route::get('/', function () {
     return view('welcome');
 });
