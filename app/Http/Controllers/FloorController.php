@@ -14,8 +14,7 @@ class FloorController extends Controller
         if (Auth::id()) {
             $userId = Auth::id();
             // dd($userId);
-            return view('admin_panel.floor_managment.floor_create', [
-            ]);
+            return view('admin_panel.floor_managment.floor_create', []);
         } else {
             return redirect()->back();
         }
@@ -58,4 +57,37 @@ class FloorController extends Controller
             return redirect()->back();
         }
     }
+
+    public function floors_update(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'floor_name' => 'required|string|max:255',
+            'floor_number' => 'required|integer|min:1',
+            'number_of_rooms' => 'required|integer|min:1',
+            'floor_type' => 'required|string',
+            'total_area_sq_ft' => 'required|numeric|min:1',
+            'floor_description' => 'nullable|string',
+        ]);
+
+        // Find the floor by ID and update it
+        $floor = Floor::findOrFail($id);
+        $floor->floor_name = $request->floor_name;
+        $floor->floor_number = $request->floor_number;
+        $floor->number_of_rooms = $request->number_of_rooms;
+        $floor->floor_type = $request->floor_type;
+        $floor->total_area_sq_ft = $request->total_area_sq_ft;
+        $floor->floor_description = $request->floor_description;
+        $floor->save();
+
+        // Return response
+        return response()->json(['success' => 'Floor updated successfully!']);
+    }
+
+    public function delete_floors($id)
+    {
+        $Floor = Floor::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Floor is deleted successsfully');
+    }
+
 }

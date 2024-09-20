@@ -100,4 +100,55 @@ class StaffController extends Controller
         }
     }
 
+
+    public function staff_update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
+        $staff = Staff::find($id);
+        if (!$staff) {
+            return response()->json(['success' => false, 'message' => 'Staff not found']);
+        }
+
+        // Update staff details
+        $staff->update([
+            'name' => $request->input('name'),
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Staff updated successfully']);
+    }
+
+    public function delete_staff($id)
+    {
+        $Staff = Staff::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Staff deleted successsfully');
+    }
+
+    public function update_staff_salary(Request $request)
+    {
+        $salary = StaffSalary::find($request->id);
+
+        $salary->staff = $request->staff;
+        $salary->date = $request->date;
+        $salary->year = $request->year;
+        $salary->month = $request->month;
+        $salary->amount = $request->amount;
+        $salary->status = $request->status;
+
+        $salary->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function delete_staff_salary($id)
+    {
+        $StaffSalary = StaffSalary::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Staff Salary deleted successsfully');
+    }
 }

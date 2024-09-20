@@ -41,15 +41,25 @@ Route::get('/staff', [StaffController::class, 'staff'])->middleware(["auth"])->n
 Route::post('/store-staff', [StaffController::class, 'store_staff'])->name('store-staff');
 Route::get('/staff-salary', [StaffController::class, 'staff_salary'])->middleware(["auth"])->name('staff-salary');
 Route::post('/store-staff-salary', [StaffController::class, 'store_staff_salary'])->name('store-staff-salary');
+Route::get('/staff-salary', [StaffController::class, 'staff_salary'])->middleware(["auth"])->name('staff-salary');
+Route::get('/staff-update/{id}', [StaffController::class, 'staff_update'])->name('staff-update');
+Route::get('/delete-staff/{id}', [StaffController::class, 'delete_staff'])->name('delete-staff');
+Route::get('/update-staff-salary', [StaffController::class, 'update_staff_salary'])->name('update-staff-salary');
+Route::get('/delete-staff-salary/{id}', [StaffController::class, 'delete_staff_salary'])->name('delete-staff-salary');
+
+
 
 Route::get('/services-create', [ServiceController::class, 'services_create'])->name('services-create');
 Route::post('/store-services', [ServiceController::class, 'store_services'])->name('store-services');
 Route::get('/services', [ServiceController::class, 'services'])->name('services');
-
+Route::get('/service-update/{id}', [ServiceController::class, 'service_update'])->name('service-update');
+Route::get('/delete-service/{id}', [ServiceController::class, 'delete_service'])->name('delete-service');
 
 Route::get('/floor-create', [FloorController::class, 'floor_create'])->name('floor-create');
 Route::post('/store-floor', [FloorController::class, 'store_floor'])->name('store-floor');
 Route::get('/floors', [FloorController::class, 'floors'])->name('floors');
+Route::get('/floors-update/{id}', [FloorController::class, 'floors_update'])->name('floors-update');
+Route::get('/delete-floors/{id}', [FloorController::class, 'delete_floors'])->name('delete-floors');
 
 
 Route::get('/room-create', [RoomController::class, 'room_create'])->name('room-create');

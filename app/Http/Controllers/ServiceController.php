@@ -53,4 +53,28 @@ class ServiceController extends Controller
             return redirect()->back();
         }
     }
+
+    public function service_update(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'service_name' => 'required|string|max:255',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Find the service by ID and update it
+        $service = Service::findOrFail($id);
+        $service->service_name = $request->service_name;
+        $service->amount = $request->amount;
+        $service->save();
+
+        // Redirect or send a response
+        return response()->json(['success' => 'Service updated successfully!']);
+    }
+
+    public function delete_service($id)
+    {
+        $Service = Service::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Service is deleted successsfully');
+    }
 }

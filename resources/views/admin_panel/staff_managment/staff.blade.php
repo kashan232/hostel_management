@@ -66,15 +66,19 @@
                       <td>{{ $staff->email }}</td>
                       <td><span class="badge rounded-pill text-bg-info">Staff</span></td>
                       <td>
-                        <a href="javascript:void(0)" class="btn btn-primary edit_staff" data-name="soban" data-username="soban" data-email="sobanqureshi00@gmail.com">
-                          <i class="fa fa-edit"></i>
-                          Edit
+                        <a href="javascript:void(0)" class="btn btn-primary edit_staff"
+                          data-id="{{ $staff->id }}"
+                          data-name="{{ $staff->name }}"
+                          data-username="{{ $staff->username }}"
+                          data-email="{{ $staff->email }}">
+                          <i class="fa fa-edit"></i> Edit
                         </a>
-                        <a href="" class="btn btn-danger">
-                          <i class="fa fa-trash"></i>
-                          Delete
+
+                        <a href="{{ route('delete-staff-salary',['id' => $staff->id ]) }}" class="btn btn-danger">
+                          <i class="fa fa-trash"></i> Delete
                         </a>
                       </td>
+
                     </tr>
                     @endforeach
                   </tbody>
@@ -134,7 +138,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Staff</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit New Staff</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -144,13 +148,14 @@
             <label for="exampleInputEmail1" class="form-label">Name<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
           </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Username<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
-          </div>
+        
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email<span class="text-danger">*</span></label>
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Username<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
           </div>
           {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
         </form>
@@ -184,6 +189,61 @@
     $("#username").val($(this).data('username'));
     $("#email").val($(this).data('email'));
     $("#editExampleModal").modal("show");
+  });
+
+  $(document).ready(function() {
+    // Attach a click event to the edit button
+    $('.edit_staff').on('click', function() {
+      var staffId = $(this).data('id');
+      var staffName = $(this).data('name');
+      var staffUsername = $(this).data('username');
+      var staffEmail = $(this).data('email');
+
+      // Set the values in the modal inputs
+      $('#editExampleModal #name').val(staffName);
+      $('#editExampleModal #username').val(staffUsername);
+      $('#editExampleModal #email').val(staffEmail);
+
+      // Store the staff ID for update purpose
+      $('#editExampleModal').data('id', staffId);
+
+      // Show the modal
+      $('#editExampleModal').modal('show');
+    });
+  });
+
+
+  $('#editExampleModal .btn-primary').on('click', function() {
+    var staffId = $('#editExampleModal').data('id');
+    var name = $('#editExampleModal #name').val();
+    var username = $('#editExampleModal #username').val();
+    var email = $('#editExampleModal #email').val();
+
+    // Make an AJAX request to update the staff details
+    $.ajax({
+      url: '/staff-update/' + staffId, // Your route to update staff
+      method: 'GET', // Use PUT or POST depending on your route
+      data: {
+        _token: '{{ csrf_token() }}', // Include CSRF token for security
+        name: name,
+        username: username,
+        email: email
+      },
+      success: function(response) {
+        if (response.success) {
+          // Close the modal
+          $('#editExampleModal').modal('hide');
+
+          // Optionally, refresh the page or update the table row with new data
+          location.reload(); // Refresh the page to see the updated data
+        } else {
+          alert('Something went wrong!');
+        }
+      },
+      error: function(xhr) {
+        console.error('Error:', xhr.responseText);
+      }
+    });
   });
 </script>
 @include('admin_panel.inlcude.footer_include')

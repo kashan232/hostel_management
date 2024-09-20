@@ -17,6 +17,8 @@
 <!-- Page Title Here -->
 <title>HMS</title>
 <!-- FAVICONS ICON -->
+ 
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 <link href="{{ asset('vendor/wow-master/css/libs/animate.css') }}" rel="stylesheet">
 <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
