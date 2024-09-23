@@ -86,6 +86,7 @@ Route::post('/store-guest', [GuestController::class, 'store_guest'])->name('stor
 Route::post('/guest/add-service', [GuestController::class, 'addService'])->name('guest.addService');
 Route::post('/end-booking', [GuestController::class, 'endBooking'])->name('endBooking');
 Route::get('/edit-guest/{id}', [GuestController::class, 'edit_guest'])->name('edit-guest');
+Route::post('/update-guest/{id}', [GuestController::class, 'update_guest'])->name('update-guest');
 
 
 Route::get('/guest-invoice', [InvoiceController::class, 'guest_invoice'])->name('guest-invoice');

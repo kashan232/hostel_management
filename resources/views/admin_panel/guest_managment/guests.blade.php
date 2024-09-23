@@ -189,7 +189,7 @@
                                                     data-guest-id="{{ $guest->id }}">View Services</a>
                                                 @endif
 
-                                                <a href="{{ route('delete-room',['id' => $Room->id ]) }}" class="btn btn-primary edit_room">
+                                                <a href="{{ route('edit-guest',['id' => $guest->id ]) }}" class="btn btn-primary edit_room">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
 

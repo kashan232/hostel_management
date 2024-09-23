@@ -39,10 +39,10 @@
 
     .card.seat-available
     {
-        background-color: #40c47a;
+        background-color: #181818;
     }
     .card.seat-booked {
-        background-color: #fd5353;
+        background-color: #18181885;
         /* Red background for booked seats */
     }
 

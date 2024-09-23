@@ -6,21 +6,27 @@
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s ease-in-out;
-        margin-bottom: 10px; /* Reduced margin for better spacing */
-        height: auto; /* Set height to auto */
-        width: 100%; /* Full width */
+        margin-bottom: 10px;
+        /* Reduced margin for better spacing */
+        height: auto;
+        /* Set height to auto */
+        width: 100%;
+        /* Full width */
     }
 
     .card-body {
-        padding: 10px; /* Adjusted padding for better spacing */
+        padding: 10px;
+        /* Adjusted padding for better spacing */
     }
 
     .seat-available {
-        background-color: #d4edda; /* Green background for available seats */
+        background-color: #d4edda;
+        /* Green background for available seats */
     }
 
     .seat-booked {
-        background-color: #f8d7da; /* Red background for booked seats */
+        background-color: #f8d7da;
+        /* Red background for booked seats */
     }
 
     .card.disabled {
@@ -39,15 +45,16 @@
 
     .card.seat-available
     {
-        background-color: #40c47a;
+        background-color: #181818;
     }
     .card.seat-booked {
-        background-color: #fd5353;
+        background-color: #18181885;
         /* Red background for booked seats */
     }
 
     .card.disabled {
-        opacity: 0.6; /* Disabled appearance */
+        opacity: 0.6;
+        /* Disabled appearance */
     }
 </style>
 
@@ -62,68 +69,69 @@
                 <div class="col-xl-12 col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Create Guest</h4>
+                            <h4 class="card-title">Edit Guest</h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="{{ route('store-guest') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('update-guest',['id' => $guest->id ]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Enter full name" required>
+                                            <input type="text" class="form-control" name="name" value="{{ $guest->name }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" name="email" placeholder="Enter email" required>
+                                            <input type="email" class="form-control" name="email" value="{{ $guest->email }}" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Mobile</label>
-                                            <input type="text" class="form-control" name="mobile" placeholder="Enter mobile number" required>
+                                            <input type="text" class="form-control" name="mobile" value="{{ $guest->mobile }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Password</label>
-                                            <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+                                            <input type="password" class="form-control" name="password" placeholder="Enter password">
+                                            <small class="text-muted">Leave blank if you do not want to change the password</small>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Booking Date</label>
-                                            <input type="date" class="form-control" name="booking_date" required>
+                                            <input type="date" class="form-control" name="booking_date" value="{{ $guest->booking_date }}" required>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Upload CNIC Picture</label>
-                                            <input type="file" class="form-control" name="cnic_pic" required>
+                                            <input type="file" class="form-control" name="cnic_pic">
+                                            <small class="text-muted">Current: {{ $guest->cnic_pic }}</small>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">ID Type</label>
                                             <select class="form-control" name="id_type" required>
-                                                <option disabled selected>Select ID type</option>
-                                                <option value="CNIC">CNIC</option>
-                                                <option value="License">License</option>
-                                                <option value="Passport">Passport</option>
+                                                <option value="CNIC" {{ $guest->id_type == 'CNIC' ? 'selected' : '' }}>CNIC</option>
+                                                <option value="License" {{ $guest->id_type == 'License' ? 'selected' : '' }}>License</option>
+                                                <option value="Passport" {{ $guest->id_type == 'Passport' ? 'selected' : '' }}>Passport</option>
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">ID Number</label>
-                                            <input type="text" class="form-control" name="id_number" placeholder="Enter ID number" required>
+                                            <input type="text" class="form-control" name="id_number" value="{{ $guest->id_number }}" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Address</label>
-                                            <textarea class="form-control" name="address" placeholder="Enter home address" required></textarea>
+                                            <textarea class="form-control" name="address" required>{{ $guest->address }}</textarea>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Select Floor</label>
                                             <select name="floor_id" class="form-control" id="floor_id" required>
                                                 <option disabled selected>Select floor</option>
                                                 @foreach($Floors as $Floor)
-                                                <option value="{{ $Floor->id }}">{{ $Floor->floor_name }}</option>
+                                                <option value="{{ $Floor->id }}" {{ $guest->floor_id == $Floor->id ? 'selected' : '' }}>{{ $Floor->floor_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -155,7 +163,7 @@
                                             <input type="date" class="form-control" name="lease_to" required>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-2 mb-2">Register Tenant</button>
+                                    <button type="submit" class="btn btn-primary mt-2 mb-2">Update Guest</button>
                                 </form>
                             </div>
                         </div>
@@ -239,7 +247,7 @@
 </script>
 
 <script>
-   $(document).on('change', 'input[name="room_id"]', function() {
+    $(document).on('change', 'input[name="room_id"]', function() {
         var room_id = $(this).val();
 
         $.ajax({

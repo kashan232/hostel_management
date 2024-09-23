@@ -12,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class GuestController extends Controller
 {
@@ -229,15 +230,112 @@ class GuestController extends Controller
     {
         if (Auth::id()) {
             $admin_id = Auth::id();
-            // dd($userId);
+            // Fetch floors
             $Floors = Floor::where('admin_id', '=', $admin_id)->get();
 
-            return view('admin_panel.guest_managment.guest_create', [
+            // Fetch the guest data by ID
+            $guest = Guest::find($id);
+
+            if (!$guest) {
+                return redirect()->back()->with('error', 'Guest not found.');
+            }
+
+            return view('admin_panel.guest_managment.edit_guest_create', [
                 'Floors' => $Floors,
+                'guest' => $guest, // Pass the guest data to the view
             ]);
         } else {
             return redirect()->back();
         }
     }
 
+    public function update_guest(Request $request, $id)
+    {
+        $guest = Guest::find($id);
+
+        if (!$guest) {
+            return redirect()->back()->with('error', 'Guest not found.');
+        }
+
+        $admin_id = Auth::id();
+
+        // Handle file upload for CNIC Picture if provided
+        if ($request->hasFile('cnic_pic')) {
+            $cnicPicPath = $request->file('cnic_pic')->store('cnic_pictures', 'public');
+            $guest->cnic_pic = $cnicPicPath;
+        }
+
+        // Calculate total charges
+        $leaseFrom = new \DateTime($request->lease_from);
+        $leaseTo = new \DateTime($request->lease_to);
+        $diffDays = $leaseFrom->diff($leaseTo)->days;
+
+        // Retrieve room details
+        $room = Room::find($request->room_id);
+        $roomCharges = $room->room_charges;
+
+        $totalCharges = $roomCharges * $diffDays;
+
+        // Collect selected seat IDs from the request
+        $selectedSeats = $request->input('seats', []); // This should be an array of seat IDs
+
+        // Update guest details
+        $guest->admin_id = $admin_id;
+        $guest->name = $request->name;
+        $guest->email = $request->email;
+
+        // Only update the password if provided
+        if ($request->password) {
+            $guest->password = bcrypt($request->password);  // Encrypting the password for security
+        }
+
+        $guest->mobile = $request->mobile;
+        $guest->id_type = $request->id_type;
+        $guest->booking_date = $request->booking_date;
+        $guest->id_number = $request->id_number;
+        $guest->address = $request->address;
+        $guest->floor_id = $request->floor_id;
+        $guest->room_id = $request->room_id;  // Update the selected room ID
+        $guest->seats_id = json_encode($selectedSeats); // Update the selected seat IDs as JSON
+        $guest->room_charges = $roomCharges;  // Update the room charges
+        $guest->total_charges = $totalCharges;
+        $guest->lease_from = $request->lease_from;
+        $guest->lease_to = $request->lease_to;
+        $guest->updated_at = Carbon::now();
+
+        // Save the updated guest record
+        $guest->save();
+
+        // Update the room and seat statuses
+        $roomSeats = Seat::where('room_id', $request->room_id)->get();
+        $bookedSeatsCount = $selectedSeats;
+
+        // Update seat statuses
+        foreach ($roomSeats as $seat) {
+            if (in_array($seat->id, $bookedSeatsCount)) {
+                // Update seat status to 'Booked'
+                $seat->update(['status' => 'Booked']);
+            } else {
+                // Ensure remaining seats are available
+                $seat->update(['status' => 'Available']);
+            }
+        }
+
+        // Check if all seats in the room are booked
+        $totalSeats = $roomSeats->count();
+        $availableSeats = $roomSeats->where('status', 'Available')->count();
+
+        if ($totalSeats == 0) {
+            $occupancyStatus = 'Available';
+        } elseif ($availableSeats == 0) {
+            $occupancyStatus = 'Booked';
+        } else {
+            $occupancyStatus = 'Partially Booked';  // You can define this status if needed
+        }
+
+        // Update room occupancy status
+        Room::where('id', $request->room_id)->update(['occupancy_status' => $occupancyStatus]);
+        return redirect()->back()->with('success', 'Guest updated successfully!');
+
+    }
 }
