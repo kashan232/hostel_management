@@ -188,6 +188,15 @@
                                                     data-bs-target="#viewServicesModal"
                                                     data-guest-id="{{ $guest->id }}">View Services</a>
                                                 @endif
+
+                                                <a href="{{ route('delete-room',['id' => $Room->id ]) }}" class="btn btn-primary edit_room">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+
+                                                <a href="#" class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+
                                             </td>
                                         </tr>
                                         @endforeach

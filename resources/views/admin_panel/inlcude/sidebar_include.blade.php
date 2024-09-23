@@ -8,7 +8,7 @@
             </li>
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">person</i>
                     <span class="nav-text">Staff</span>
                 </a>
                 <ul aria-expanded="false">
@@ -16,11 +16,12 @@
                     <li><a href="{{ route('staff-salary') }}">Staff Salary</a></li>
                 </ul>
             </li>
-            
+
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">lan</i>
                     <span class="nav-text">Service</span>
+                    
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('services') }}">Manage Service</a></li>
@@ -29,8 +30,8 @@
             </li>
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
-                    
+                    <i class="material-symbols-outlined">apartment</i>
+
                     <span class="nav-text">Floors</span>
                 </a>
                 <ul aria-expanded="false">
@@ -39,10 +40,9 @@
 
                 </ul>
             </li>
-
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">real_estate_agent</i>
                     <span class="nav-text">Rooms</span>
                 </a>
                 <ul aria-expanded="false">
@@ -54,7 +54,7 @@
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">bed</i>
                     <span class="nav-text">Seat Setup</span>
                 </a>
                 <ul aria-expanded="false">
@@ -67,7 +67,7 @@
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">person_search</i>
                     <span class="nav-text">Guests</span>
                 </a>
                 <ul aria-expanded="false">
@@ -78,7 +78,7 @@
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">receipt_long</i>
                     <span class="nav-text">Invoice</span>
                 </a>
                 <ul aria-expanded="false">
@@ -89,14 +89,14 @@
 
             <li>
                 <a href="{{ route('admin-complains') }}" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">notifications</i>
                     <span class="nav-text">Complains</span>
                 </a>
             </li>
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">mark_email_unread</i>
                     <span class="nav-text">Notices</span>
                 </a>
                 <ul aria-expanded="false">
@@ -107,7 +107,7 @@
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">payments</i>
                     <span class="nav-text">Expense</span>
                 </a>
                 <ul aria-expanded="false">
@@ -118,7 +118,7 @@
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">warehouse</i>
                     <span class="nav-text">Inventory</span>
                 </a>
                 <ul aria-expanded="false">
@@ -127,7 +127,7 @@
                 </ul>
             </li>
 
-           
+
 
         </ul>
     </div>

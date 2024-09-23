@@ -59,11 +59,13 @@ class SeatSetupController extends Controller
             // dd($Seats);
             // Eager load the floor and room relationships
             $Seats = Seat::with(['floor', 'room'])->get();
-
+            $floors = Floor::where('admin_id', '=', $admin_id)->get();
+            // dd($floors);
 
 
             return view('admin_panel.seat_managment.seats', [
                 'Seats' => $Seats,
+                'floors' => $floors,
             ]);
         } else {
             return redirect()->back();
@@ -74,5 +76,28 @@ class SeatSetupController extends Controller
     {
         $rooms = Room::where('floor_id', $floorId)->get();
         return response()->json(['rooms' => $rooms]);
+    }
+
+    public function updateSeat(Request $request)
+    {
+        $seat = Seat::find($request->input('seat_id'));
+
+        if ($seat) {
+            $seat->floor_id = $request->input('floor_id');
+            $seat->room_id = $request->input('room_id');
+            $seat->seat_name = $request->input('seat_name');
+            $seat->status = $request->input('status');
+            $seat->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Seat not found']);
+    }
+
+    public function delete_seat($id)
+    {
+        $Seat = Seat::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Seat is deleted successsfully');
     }
 }

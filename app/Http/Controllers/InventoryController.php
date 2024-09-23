@@ -54,4 +54,30 @@ class InventoryController extends Controller
             return redirect()->back();
         }
     }
+
+    public function update(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'qunty' => 'required|integer'
+        ]);
+
+        $inventory = Inventory::findOrFail($request->id);
+
+        $inventory->name = $validatedData['name'];
+        $inventory->price = $validatedData['price'];
+        $inventory->qunty = $validatedData['qunty'];
+
+        $inventory->save();
+
+        return response()->json(['success' => true, 'message' => 'Inventory updated successfully']);
+    }
+
+    public function delete_inventory($id)
+    {
+        $Inventory = Inventory::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Inventory is deleted successsfully');
+    }
+
 }

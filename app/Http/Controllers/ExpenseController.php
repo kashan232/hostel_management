@@ -56,4 +56,34 @@ class ExpenseController extends Controller
             return redirect()->back();
         }
     }
+
+
+    public function update(Request $request)
+    {
+        // Add validation rules
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'year' => 'required|numeric',
+            'month' => 'required|string|max:255',
+            'Amount' => 'required|numeric',
+            'description' => 'nullable|string'
+        ]);
+
+        try {
+            // Perform the update logic
+            $expense = Expense::findOrFail($request->expense_id);
+            $expense->update($validated);
+
+            return response()->json(['success' => true, 'message' => 'Expense updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function delete_expense($id)
+    {
+        $Expense = Expense::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Expense is deleted successsfully');
+    }
+
 }

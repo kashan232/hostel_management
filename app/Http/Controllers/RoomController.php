@@ -55,12 +55,38 @@ class RoomController extends Controller
             $admin_id = Auth::id();
             $Rooms = Room::where('admin_id', '=', $admin_id)->get();
             // dd($Rooms);
+            $floors = Floor::where('admin_id', '=', $admin_id)->get();
+
 
             return view('admin_panel.room_managment.rooms', [
                 'Rooms' => $Rooms,
+                'floors' => $floors,
             ]);
         } else {
             return redirect()->back();
         }
+    }
+
+    public function updateRoom(Request $request)
+    {
+        $room = Room::findOrFail($request->id);
+
+        $room->floor_id = $request->floor_id;
+        $room->room_number = $request->room_number;
+        $room->room_type = $request->room_type;
+        $room->number_of_beds = $request->number_of_beds;
+        $room->room_amenities = $request->room_amenities;
+        $room->occupancy_status = $request->occupancy_status;
+        $room->room_charges = $request->room_charges;
+
+        $room->save();
+
+        return response()->json(['success' => true, 'message' => 'Room updated successfully']);
+    }
+
+    public function delete_room($id)
+    {
+        $Floor = Floor::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Floor is deleted successsfully');
     }
 }

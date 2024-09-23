@@ -65,12 +65,16 @@ Route::get('/delete-floors/{id}', [FloorController::class, 'delete_floors'])->na
 Route::get('/room-create', [RoomController::class, 'room_create'])->name('room-create');
 Route::post('/store-room', [RoomController::class, 'store_room'])->name('store-room');
 Route::get('/rooms', [RoomController::class, 'rooms'])->name('rooms');
+Route::post('/update-room', [RoomController::class, 'updateRoom']);
+Route::get('/delete-room/{id}', [RoomController::class, 'delete_room'])->name('delete-room');
 
 
 Route::get('/seat-setup-create', [SeatSetupController::class, 'seat_setup_create'])->name('seat-setup-create');
 Route::post('/store-seat-setup', [SeatSetupController::class, 'store_seat_setup'])->name('store-seat-setup');
 Route::get('/seat-setup', [SeatSetupController::class, 'seat_setup'])->name('seat-setup');
 Route::get('/get-rooms/{floorId}', [SeatSetupController::class, 'getRooms']);
+Route::post('/update-seat', [SeatSetupController::class, 'updateSeat']);
+Route::get('/delete-seat/{id}', [SeatSetupController::class, 'delete_seat'])->name('delete-seat');
 
 
 
@@ -81,6 +85,7 @@ Route::get('/get-seats', [GuestController::class, 'getSeats'])->name('get-seats'
 Route::post('/store-guest', [GuestController::class, 'store_guest'])->name('store-guest');
 Route::post('/guest/add-service', [GuestController::class, 'addService'])->name('guest.addService');
 Route::post('/end-booking', [GuestController::class, 'endBooking'])->name('endBooking');
+Route::get('/edit-guest/{id}', [GuestController::class, 'edit_guest'])->name('edit-guest');
 
 
 Route::get('/guest-invoice', [InvoiceController::class, 'guest_invoice'])->name('guest-invoice');
@@ -96,11 +101,15 @@ Route::post('/action-on-complaint', [HomeController::class, 'action_on_complaint
 Route::get('/expense-create', [ExpenseController::class, 'expense_create'])->name('expense-create');
 Route::post('/store-expense', [ExpenseController::class, 'store_expense'])->name('store-expense');
 Route::get('/expense', [ExpenseController::class, 'expense'])->name('expense');
+Route::post('/update-expense', [ExpenseController::class, 'update'])->name('expense.update');
+Route::get('/delete-expense/{id}', [ExpenseController::class, 'delete_expense'])->name('delete-expense');
 
 
 Route::get('/inventory-create', [InventoryController::class, 'inventory_create'])->name('inventory-create');
 Route::post('/store-inventory', [InventoryController::class, 'store_inventory'])->name('store-inventory');
 Route::get('/inventory', [InventoryController::class, 'inventory'])->name('inventory');
+Route::post('/update-inventory', [InventoryController::class, 'update'])->name('inventory.update');
+Route::get('/delete-inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete-inventory');
 
 
 Route::get('/notices-create', [NoticeController::class, 'notices_create'])->name('notices-create');

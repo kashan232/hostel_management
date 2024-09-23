@@ -224,4 +224,20 @@ class GuestController extends Controller
 
         return response()->json(['success' => false]);
     }
+
+    public function edit_guest(Request $request, $id)
+    {
+        if (Auth::id()) {
+            $admin_id = Auth::id();
+            // dd($userId);
+            $Floors = Floor::where('admin_id', '=', $admin_id)->get();
+
+            return view('admin_panel.guest_managment.guest_create', [
+                'Floors' => $Floors,
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
 }
