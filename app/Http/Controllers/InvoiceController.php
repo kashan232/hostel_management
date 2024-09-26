@@ -100,7 +100,9 @@ class InvoiceController extends Controller
             'status' => $newDueAmount > 0 ? 'Partially Paid' : 'Paid', // Update status based on due amount
         ]);
 
-        return redirect()->back()->with('success', 'Payment has been recorded and guest status updated.');
+        // return redirect()->back()->with('success', 'Payment has been recorded and guest status updated.');
+        return redirect()->route('guest-invoice')->with('success', 'Payment has been recorded and guest status updated.');
+
     }
 
 

@@ -6,21 +6,27 @@
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s ease-in-out;
-        margin-bottom: 10px; /* Reduced margin for better spacing */
-        height: auto; /* Set height to auto */
-        width: 100%; /* Full width */
+        margin-bottom: 10px;
+        /* Reduced margin for better spacing */
+        height: auto;
+        /* Set height to auto */
+        width: 100%;
+        /* Full width */
     }
 
     .card-body {
-        padding: 10px; /* Adjusted padding for better spacing */
+        padding: 10px;
+        /* Adjusted padding for better spacing */
     }
 
     .seat-available {
-        background-color: #d4edda; /* Green background for available seats */
+        background-color: #d4edda;
+        /* Green background for available seats */
     }
 
     .seat-booked {
-        background-color: #f8d7da; /* Red background for booked seats */
+        background-color: #f8d7da;
+        /* Red background for booked seats */
     }
 
     .card.disabled {
@@ -37,17 +43,18 @@
         margin-bottom: 10px;
     }
 
-    .card.seat-available
-    {
+    .card.seat-available {
         background-color: #181818;
     }
+
     .card.seat-booked {
         background-color: #18181885;
         /* Red background for booked seats */
     }
 
     .card.disabled {
-        opacity: 0.6; /* Disabled appearance */
+        opacity: 0.6;
+        /* Disabled appearance */
     }
 </style>
 
@@ -76,6 +83,9 @@
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Email</label>
                                             <input type="email" class="form-control" name="email" placeholder="Enter email" required>
+                                            @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -239,7 +249,7 @@
 </script>
 
 <script>
-   $(document).on('change', 'input[name="room_id"]', function() {
+    $(document).on('change', 'input[name="room_id"]', function() {
         var room_id = $(this).val();
 
         $.ajax({

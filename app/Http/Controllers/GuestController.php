@@ -89,6 +89,11 @@ class GuestController extends Controller
     {
         $admin_id = Auth::id();
 
+        // Validate the request data
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+        ]);
+
         // Handle file upload for CNIC Picture
         $cnicPicPath = $request->file('cnic_pic')->store('cnic_pictures', 'public');
 
@@ -336,6 +341,5 @@ class GuestController extends Controller
         // Update room occupancy status
         Room::where('id', $request->room_id)->update(['occupancy_status' => $occupancyStatus]);
         return redirect()->back()->with('success', 'Guest updated successfully!');
-
     }
 }

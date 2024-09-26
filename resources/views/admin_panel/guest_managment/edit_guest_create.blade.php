@@ -43,10 +43,10 @@
         margin-bottom: 10px;
     }
 
-    .card.seat-available
-    {
+    .card.seat-available {
         background-color: #181818;
     }
+
     .card.seat-booked {
         background-color: #18181885;
         /* Red background for booked seats */
@@ -127,11 +127,13 @@
                                             <textarea class="form-control" name="address" required>{{ $guest->address }}</textarea>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">Select Floor</label>
-                                            <select name="floor_id" class="form-control" id="floor_id" required>
+                                            <label class="form-label">Select New Floor</label><br>
+                                            <label class="form-label">Current Floor: <strong>{{ $guest->floor->floor_name }}</strong></label>
+                                            <select name="floor_id" class="form-control" id="floor_id">
                                                 <option disabled selected>Select floor</option>
                                                 @foreach($Floors as $Floor)
-                                                <option value="{{ $Floor->id }}" {{ $guest->floor_id == $Floor->id ? 'selected' : '' }}>{{ $Floor->floor_name }}</option>
+                                                <!-- Don't pre-select any floor -->
+                                                <option value="{{ $Floor->id }}">{{ $Floor->floor_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

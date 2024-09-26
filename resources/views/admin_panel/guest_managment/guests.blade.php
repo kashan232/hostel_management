@@ -180,22 +180,18 @@
                                                 @elseif($guest->status == 'Paid')
                                                 <span class="badge bg-primary">No Action</span>
                                                 @else
-                                                <a href="#" class="btn btn-primary">Edit</a>
                                                 <a href="#" class="btn btn-success" data-bs-toggle="modal"
                                                     data-bs-target="#addServiceModal"
                                                     data-guest-id="{{ $guest->id }}">Add Service</a>
                                                 <a href="#" class="btn btn-info" data-bs-toggle="modal"
                                                     data-bs-target="#viewServicesModal"
                                                     data-guest-id="{{ $guest->id }}">View Services</a>
-                                                @endif
 
                                                 <a href="{{ route('edit-guest',['id' => $guest->id ]) }}" class="btn btn-primary edit_room">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                @endif
 
-                                                <a href="#" class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </a>
 
                                             </td>
                                         </tr>

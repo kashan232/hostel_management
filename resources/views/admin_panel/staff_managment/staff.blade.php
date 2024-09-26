@@ -74,7 +74,7 @@
                           <i class="fa fa-edit"></i> Edit
                         </a>
 
-                        <a href="{{ route('delete-staff-salary',['id' => $staff->id ]) }}" class="btn btn-danger">
+                        <a href="{{ route('delete-staff',['id' => $staff->id ]) }}" class="btn btn-danger">
                           <i class="fa fa-trash"></i> Delete
                         </a>
                       </td>
