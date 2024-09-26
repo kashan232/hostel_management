@@ -116,6 +116,8 @@ Route::get('/delete-inventory/{id}', [InventoryController::class, 'delete_invent
 Route::get('/notices-create', [NoticeController::class, 'notices_create'])->name('notices-create');
 Route::post('/store-notices', [NoticeController::class, 'store_notices'])->name('store-notices');
 Route::get('/notices', [NoticeController::class, 'notices'])->name('notices');
+Route::put('/notices/update', [NoticeController::class, 'update'])->name('notices.update');
+Route::get('/delete-notices/{id}', [NoticeController::class, 'delete_notices'])->name('delete-notices');
 
 
 // Guest routes

@@ -86,7 +86,7 @@ class RoomController extends Controller
 
     public function delete_room($id)
     {
-        $Floor = Floor::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Floor is deleted successsfully');
+        $Room = Room::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Room is deleted successsfully');
     }
 }

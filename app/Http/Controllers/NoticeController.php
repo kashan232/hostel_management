@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class NoticeController extends Controller
 {
-    
+
     public function notices_create()
     {
         if (Auth::id()) {
@@ -55,6 +55,29 @@ class NoticeController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    public function update(Request $request)
+    {
+        $notice = Notice::find($request->id);
+
+        if ($notice) {
+            $notice->title = $request->title;
+            $notice->notice_date = $request->notice_date;
+            $notice->expiry_date = $request->expiry_date;
+            $notice->description = $request->description;
+            $notice->save();
+
+            return response()->json(['success' => true, 'message' => 'Notice updated successfully!']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Notice not found!']);
+    }
+
+    public function delete_notices($id)
+    {
+        $Notice = Notice::find($id)->delete();
+        return redirect()->back()->with('delete-success', 'Notice is deleted successsfully');
     }
 
 }
