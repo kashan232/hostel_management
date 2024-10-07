@@ -1,6 +1,7 @@
 <div class="nav-header">
         <a href="#" class="brand-logo">
-           <img src="/images/hms_logo.png" alt="" style="width: 200px;">
+           <!-- <img src="/images/hms_logo.png" alt="" style="width: 200px;"> -->
+           <h2 class="text-center w-100 text-white">Cubebell</h2>
         </a>
         <div class="nav-control">
             <div class="hamburger">

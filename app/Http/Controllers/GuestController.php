@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Floor;
 use App\Models\Guest;
 use App\Models\GuestService;
+use App\Models\RecurringService;
 use App\Models\Room;
 use App\Models\Seat;
 use App\Models\Service;
@@ -341,5 +342,53 @@ class GuestController extends Controller
         // Update room occupancy status
         Room::where('id', $request->room_id)->update(['occupancy_status' => $occupancyStatus]);
         return redirect()->back()->with('success', 'Guest updated successfully!');
+    }
+
+    public function guest_advance_payment(Request $request)
+    {
+        $guest = Guest::find($request->guest_id);
+        $guest->advance_amount = $request->advance_amount;
+        $guest->advance_date = $request->advance_date;
+        $guest->save();
+
+        return redirect()->back()->with('success', 'Advance payment added successfully.');
+    }
+
+    public function addRecurringService(Request $request)
+    {
+        $request->validate([
+            'guest_id' => 'required',
+            'service_name' => 'required|string',
+            'month' => 'required|date',
+            'amount' => 'required|numeric',
+        ]);
+
+        RecurringService::create([
+            'guest_id' => $request->guest_id,
+            'service_name' => $request->service_name,
+            'month' => $request->month,
+            'amount' => $request->amount,
+        ]);
+
+        return redirect()->back()->with('success', 'Recurring service added successfully.');
+    }
+
+    public function getRecurringServices(Request $request)
+    {
+        $guest_ID = $request->guest_id;
+
+        // Fetch recurring services from the database for the given guest
+        $services = RecurringService::where('guest_id', $guest_ID)
+            ->get()
+            ->map(function ($service) {
+                // Format dates before sending response
+                $service->formatted_date = Carbon::parse($service->created_at)->format('F Y'); // e.g., October 2024
+                return $service;
+            });
+
+        // Return JSON response to the AJAX request
+        return response()->json([
+            'services' => $services
+        ]);
     }
 }

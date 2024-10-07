@@ -124,6 +124,7 @@
                                             <th>Payment Date</th>
                                             <th>Booking Date</th>
                                             <th>Lease Period</th>
+                                            <th>Advance Payment</th> <!-- New column -->
                                             <th>Amount Paid</th>
                                             <th>Room Charges</th>
                                             <th>Total Charges</th>
@@ -143,6 +144,7 @@
                                             <td>{{ \Carbon\Carbon::parse($invoice->payment_date)->format('d-m-Y') }}</td>
                                             <td>{{ $invoice->guest->booking_date }}</td>
                                             <td>{{ $invoice->guest->lease_from }} to {{ $invoice->guest->lease_to }}</td>
+                                            <td>{{ $invoice->guest->advance_amount ?? 'N/A' }} <br> {{ $invoice->guest->advance_date ?? 'N/A' }}</td> <!-- New column -->
                                             <td>{{ $invoice->amount_paid }}</td>
                                             <td>{{ $invoice->guest->room_charges }}</td>
                                             <td>{{ $invoice->guest->total_charges }}</td>

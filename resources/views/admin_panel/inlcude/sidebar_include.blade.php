@@ -82,6 +82,7 @@
                     <span class="nav-text">Invoice</span>
                 </a>
                 <ul aria-expanded="false">
+                    <li><a href="{{ route('create-invoice') }}">Create Invoice</a></li>
                     <li><a href="{{ route('guest-invoice') }}">Manage Invoice</a></li>
                     <li><a href="{{ route('invoices-paid') }}">Paid Invoice</a></li>
                 </ul>

@@ -52,6 +52,7 @@
                                             <th>Seat</th>
                                             <th>Charges</th>
                                             <th>Total Charges</th>
+                                            <th>Advance Payment</th> <!-- New column -->
                                             <th>Lease From</th>
                                             <th>Lease To</th>
                                             <th>Status</th>
@@ -77,6 +78,7 @@
                                             </td>
                                             <td>{{ $guest->room_charges }}</td>
                                             <td>{{ $guest->total_charges }}</td>
+                                            <td>{{ $guest->advance_amount ?? 'N/A' }} <br> {{ $guest->advance_date ?? 'N/A' }}</td> <!-- New column -->
                                             <td>{{ $guest->lease_from }}</td>
                                             <td>{{ $guest->lease_to }}</td>
                                             <td>

@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 text-end">
-                                            <h4 id="total_charges" class="badge bg-primary p-3">Total Charges: 0</h4>
+                                            <h4 id="total_charges" class="btn btn-primary btn-lg p-3">Total Charges: 0</h4>
                                         </div>
                                     </div>
                                     <!-- Remaining form fields and submit button -->

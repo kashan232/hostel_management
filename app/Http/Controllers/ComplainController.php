@@ -26,8 +26,7 @@ class ComplainController extends Controller
     public function store_complain(Request $request)
     {
         if (Auth::id()) {
-            $admin_id = Auth::id();
-
+            $admin_id = Auth()->user()->staff_id;
             // Handle the file upload
             $imageName = null;
             if ($request->hasFile('complaint_pic')) {

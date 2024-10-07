@@ -6,14 +6,21 @@ use App\Models\Complain;
 use App\Models\ComplainRemark;
 use App\Models\Floor;
 use App\Models\Guest;
+use App\Models\GuestService;
+use App\Models\Notice;
+use App\Models\RecurringService;
 use App\Models\Room;
 use App\Models\Service;
 use App\Models\Staff;
+use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
 
 class HomeController extends Controller
 {
@@ -119,7 +126,36 @@ class HomeController extends Controller
                 return view('admin_panel.admin_dashboard', compact('totalStaff', 'totalServices', 'Floor', 'rooms', 'totalComplaints', 'unresolvedComplaints', 'resolvedComplaints', 'InprogressComplaints', 'totalInvoices', 'totalExpenses', 'totalinvoicesgust', 'paidinvoice', 'unpaidinvoices', 'Rooms', 'guests'));
             } else if ($usertype == 'Guest') {
 
-                return view('guest_panel.guest_dashboard');
+                $userId = Auth()->user()->staff_id;
+
+
+                // Assuming you use Laravel's authentication system
+                // Count the complaints where the logged-in user's ID matches the 'admin_id'
+                $complaintCount = Complain::where('admin_id', $userId)->count();
+
+                // Get the total amount and count for guest services
+                $guestServices = GuestService::where('guest_id', $userId)->get();
+                $guestServicesTotal = $guestServices->sum('amount');
+                $guestServicesCount = $guestServices->count();
+
+                // Get the total amount and count for recurring services
+                $recurringServices = RecurringService::where('guest_id', $userId)->get();
+                $recurringServicesTotal = $recurringServices->sum('amount');
+                $recurringServicesCount = $recurringServices->count();
+                $noticeCount = Notice::count();
+
+                // Pass the data to the view
+                return view('guest_panel.guest_dashboard', compact(
+                    'complaintCount',
+                    'noticeCount',
+                    'guestServices',
+                    'guestServicesCount',
+                    'recurringServicesCount',
+                    'guestServicesTotal',
+                    'recurringServices',
+                    'recurringServicesTotal'
+                ));
+                // Pass the count to the view
             }
         } else {
             // return redirect()->back();
@@ -180,6 +216,157 @@ class HomeController extends Controller
         } else {
             // User is not authenticated, return 401 unauthorized
             return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    }
+
+    public function Admin_Change_Password()
+    {
+        if (Auth::id()) {
+            $userId = Auth::id();
+            // dd($userId);
+
+            // $all_department = Department::where('admin_or_user_id', '=', $userId)->get();
+            return view('admin_panel.admin_change_password', [
+                // 'all_department' => $all_department,
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function Admin_profile_page()
+    {
+        if (Auth::id()) {
+            $userId = Auth::id();
+            // dd($userId);
+            $profile = User::where('id', $userId)->first();
+
+            // $all_department = Department::where('admin_or_user_id', '=', $userId)->get();
+            return view('admin_panel.admin_profile', [
+                'profile' => $profile,
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+
+    public function updte_change_Password(Request $request)
+    {
+        if (Auth::id()) {
+            // Validate the form data
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|min:8',
+                'retype_new_password' => 'required|same:new_password'
+            ]);
+
+            // Get the current authenticated user
+            $user = Auth::user();
+
+            // Check if the old password matches
+            if (!Hash::check($request->input('old_password'), $user->password)) {
+                return redirect()->back()->with('error', 'Old password is incorrect');
+            }
+
+            // Check if the user is an admin
+            if ($user->usertype !== 'admin') {
+                return redirect()->back()->with('error', 'Unauthorized action');
+            }
+
+            // Update the password
+            $user->password = Hash::make($request->input('new_password'));
+            $user->save();
+
+            // Add a success message to the session
+            return redirect()->back()->with('success', 'Password changed successfully');
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $userId = Auth::id(); // Get the current user's ID
+
+        // Validate the incoming request data
+        $request->validate([
+            'hostel_name' => 'required|string|max:255',
+            'owner_name' => 'required|string|max:255',
+            'owner_email' => 'required|email|max:255',
+            'owner_cnic' => 'required|string|max:255',
+            'owner_address' => 'required|string|max:255',
+            'owner_city' => 'required|string|max:255',
+        ]);
+
+        // Save or update the user's profile
+        User::updateOrCreate(
+            ['id' => $userId],
+            [
+                'hostel_name' => $request->input('hostel_name'),
+                'owner_name' => $request->input('owner_name'),
+                'owner_email' => $request->input('owner_email'),
+                'owner_cnic' => $request->input('owner_cnic'),
+                'owner_address' => $request->input('owner_address'),
+                'owner_city' => $request->input('owner_city'),
+            ]
+        );
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
+
+
+    public function guest_Change_Password()
+    {
+        if (Auth::id()) {
+            $userId = Auth::id();
+            // dd($userId);
+            // $all_department = Department::where('admin_or_user_id', '=', $userId)->get();
+            return view('guest_panel.guest_change_password', [
+                // 'all_department' => $all_department,
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+
+    public function guest_updte_change_Password(Request $request)
+    {
+        if (Auth::id()) {
+            // dd($request)
+            // Validate the request data
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|min:8',
+                'retype_new_password' => 'required|same:new_password'
+            ]);
+
+            // Get the currently authenticated user
+            $user = Auth::user();
+            // dd($user);
+            // Check if the old password matches the current password
+            if (!Hash::check($request->old_password, $user->password)) {
+                return redirect()->back()->with('error', 'The provided old password does not match our records');
+            }
+
+            // Update password in the users table
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            // Update password in the hr table
+            $guest = Guest::where('id', $user->staff_id)->first();
+            if ($guest) {
+                $guest->password = $request->new_password;  // No hashing for the hr table password
+                $guest->save();
+            } else {
+                return back()->with('error', '');
+                return redirect()->back()->with('error', 'Guest record not found.');
+            }
+            return redirect()->back()->with('success', 'Password changed successfully');
+        } else {
+            return redirect()->back();
         }
     }
 }

@@ -50,4 +50,14 @@ class Guest extends Model
         }
         return collect(); // Return an empty collection if no seat IDs are found
     }
+
+    public function guestservices()
+    {
+        return $this->hasMany(GuestService::class);
+    }
+
+    public function recurringServices()
+    {
+        return $this->hasMany(RecurringService::class);
+    }
 }

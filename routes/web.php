@@ -36,6 +36,21 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'home'])->middleware(['auth'])->name('home');
 
+
+//Admin Panel
+Route::get('/Admin-Change-Password', [HomeController::class, 'Admin_Change_Password'])->name('Admin-Change-Password');
+Route::post('/updte-change-Password', [HomeController::class, 'updte_change_Password'])->name('updte-change-Password');
+
+Route::get('/Admin-profile-page', [HomeController::class, 'Admin_profile_page'])->name('Admin-profile-page');
+Route::post('admin-profile-updte', [HomeController::class, 'updateProfile'])->name('admin-profile-updte');
+
+
+
+//Admin Panel
+Route::get('/guest-Change-Password', [HomeController::class, 'guest_Change_Password'])->name('guest-Change-Password');
+Route::post('/guest-updte-change-Password', [HomeController::class, 'guest_updte_change_Password'])->name('guest-updte-change-Password');
+
+
 // Staff
 Route::get('/staff', [StaffController::class, 'staff'])->middleware(["auth"])->name('staff');
 Route::post('/store-staff', [StaffController::class, 'store_staff'])->name('store-staff');
@@ -87,12 +102,19 @@ Route::post('/guest/add-service', [GuestController::class, 'addService'])->name(
 Route::post('/end-booking', [GuestController::class, 'endBooking'])->name('endBooking');
 Route::get('/edit-guest/{id}', [GuestController::class, 'edit_guest'])->name('edit-guest');
 Route::post('/update-guest/{id}', [GuestController::class, 'update_guest'])->name('update-guest');
+Route::post('/guest-advance-payment', [GuestController::class, 'guest_advance_payment'])->name('guest-advance-payment');
+Route::post('/guest/add-recurring-service', [GuestController::class, 'addRecurringService'])->name('guest.addRecurringService');
+Route::get('/get-recurring-services', [GuestController::class, 'getRecurringServices']);
 
 
+Route::get('/create-invoice', [InvoiceController::class, 'create_invoice'])->name('create-invoice');
 Route::get('/guest-invoice', [InvoiceController::class, 'guest_invoice'])->name('guest-invoice');
 Route::get('/generate-invoice/{guest_id}', [InvoiceController::class, 'generateInvoice'])->name('generate-invoice');
 Route::post('/store-payment/{invoice}', [InvoiceController::class, 'store_payment'])->name('store-payment');
 Route::get('/invoices-paid', [InvoiceController::class, 'showPaidInvoices'])->name('invoices-paid');
+Route::get('/get-guest-details', [InvoiceController::class, 'get_guest_details'])->name('get-guest-details');
+Route::post('/save-payment', [InvoiceController::class, 'savePayment'])->name('save.payment');
+
 
 Route::get('/admin-complains', [HomeController::class, 'admin_complains'])->name('admin-complains');
 Route::get('/view-admin-complains/{id}', [HomeController::class, 'view_admin_complains'])->name('view-admin-complains');

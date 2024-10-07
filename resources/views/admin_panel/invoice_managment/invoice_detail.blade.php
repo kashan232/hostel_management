@@ -70,8 +70,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="total_amount">Total Amount Due</label>
+                        <label for="total_amount">Total Amount</label>
                         <input type="text" class="form-control" id="total_amount" value="{{ number_format($totalCharges, 2) }}" readonly>
+                    </div>
+                    <!-- Advance Payment -->
+                    @if($guest->advance_amount)
+                    <div class="form-group">
+                        <label for="advance_payment" class="text-danger">Advance Payment Received</label>
+                        <input type="text" class="form-control" id="advance_payment" value="-{{ number_format($guest->advance_amount, 2) }}" readonly>
+                    </div>
+                    @endif
+                    <div class="form-group">
+                        <label for="total_amount">Total Amount Due</label>
+                        <input type="text" class="form-control" id="total_amount_due" value=" {{ number_format(($totalCharges - ($guest->advance_amount ?? 0)), 2) }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="amount_paid">Amount to Pay</label>
@@ -171,7 +182,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Charges Breakdown -->
                                 <div class="row mb-4">
                                     <div class="col-md-12">
                                         <h5 class="mb-3">Charges Breakdown</h5>
@@ -183,25 +193,60 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <!-- Room Charges -->
                                                 <tr>
                                                     <td>Room Charges ({{ $stayDuration }} days)</td>
-                                                    <td class="text-right">{{ number_format($guest->room_charges * $stayDuration, 2) }}</td>
+                                                    <td class="text-right">{{ number_format($totalRoomCharges, 2) }}</td>
                                                 </tr>
+
+                                                <!-- Regular Services -->
                                                 @foreach($guest->services as $service)
                                                 <tr>
                                                     <td>Service: {{ $service->service_name }}</td>
                                                     <td class="text-right">{{ number_format($service->amount, 2) }}</td>
                                                 </tr>
                                                 @endforeach
+
+                                                <!-- Recurring Services -->
+                                                @foreach($recurringServices as $recurringService)
+                                                <tr>
+                                                    <td>Recurring Service ({{ $recurringService->formatted_month }}): {{ $recurringService->service_name }}</td>
+                                                    <td class="text-right">{{ number_format($recurringService->amount, 2) }}</td>
+                                                </tr>
+                                                @endforeach
+
+                                                <!-- Total Charges -->
                                                 <tr class="font-weight-bold">
                                                     <td>Total Charges</td>
                                                     <td class="text-right">{{ number_format($totalCharges, 2) }}</td>
                                                 </tr>
+
+                                                <!-- Advance Payment (if any) -->
+                                                @if($guest->advance_amount)
+                                                <tr>
+                                                    <td>Advance Payment Received on {{ $guest->advance_date }}</td>
+                                                    <td class="text-right text-danger">-{{ number_format($guest->advance_amount, 2) }}</td>
+                                                </tr>
+                                                @endif
+
+                                                <!-- Amount Due -->
+                                                <tr class="font-weight-bold">
+                                                    <td>Amount Due</td>
+                                                    <td class="text-right">
+                                                        {{ number_format(($totalCharges - ($guest->advance_amount ?? 0)), 2) }}
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
-                                        <p class="text-center mt-3"><strong>Total Amount Due:</strong> <span class="display-4">{{ number_format($totalCharges, 2) }}</span></p>
+
+                                        <!-- Total Amount Due -->
+                                        <p class="text-center mt-3"><strong>Total Amount Due:</strong>
+                                            <span class="display-4">{{ number_format(($totalCharges - ($guest->advance_amount ?? 0)), 2) }}</span>
+                                        </p>
                                     </div>
                                 </div>
+
+
 
                                 <!-- Footer -->
                                 <div class="row mt-5 text-center">
@@ -236,13 +281,13 @@
         // When the modal is shown
         $('#paymentModal').on('shown.bs.modal', function() {
             // Set the initial remaining due amount based on the total amount
-            var totalAmount = parseFloat($('#total_amount').val().replace(/,/g, '')); // Removing commas for accurate calculations
+            var totalAmount = parseFloat($('#total_amount_due').val().replace(/,/g, '')); // Removing commas for accurate calculations
             $('#remaining_due').val(totalAmount.toFixed(2));
         });
 
         // Update the remaining due amount when the amount to pay is changed
         $('#amount_paid').on('input', function() {
-            var totalAmount = parseFloat($('#total_amount').val().replace(/,/g, '')); // Removing commas for accurate calculations
+            var totalAmount = parseFloat($('#total_amount_due').val().replace(/,/g, '')); // Removing commas for accurate calculations
             var amountPaid = parseFloat($(this).val()) || 0; // Default to 0 if input is empty or invalid
 
             var remainingDue = totalAmount - amountPaid;

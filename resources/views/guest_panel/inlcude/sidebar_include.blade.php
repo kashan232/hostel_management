@@ -9,7 +9,7 @@
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">receipt_long</i>
                     <span class="nav-text">Invoice</span>
                 </a>
                 <ul aria-expanded="false">
@@ -20,7 +20,7 @@
 
             <li>
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">notifications</i>
                     <span class="nav-text">Complains</span>
                 </a>
                 <ul aria-expanded="false">
@@ -31,7 +31,7 @@
 
             <li>
                 <a href="{{ route('geust-notices') }}" aria-expanded="false">
-                    <i class="material-symbols-outlined">school</i>
+                    <i class="material-symbols-outlined">mark_email_unread</i>
                     <span class="nav-text">Notices</span>
                 </a>
             </li>
