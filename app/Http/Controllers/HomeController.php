@@ -45,7 +45,13 @@ class HomeController extends Controller
                 $rooms = Room::where('admin_id', $admin_id)->count();
 
                 // Total complaints count
-                $totalComplaints = DB::table('complains')->count();
+
+                // Fetch all guests created by this admin
+                $guests = Guest::where('admin_id', $admin_id)->pluck('id'); // admin ke guests ke ids
+                // dd($guests);
+                // Fetch complaints of only the guests created by this admin
+                $totalComplaints = Complain::whereIn('guest_id', $guests)->count();
+                // dd($totalComplaints);
 
                 // Unresolved complaints count (assuming unresolved status is anything other than 'Closed')
                 $unresolvedComplaints = DB::table('complains')
@@ -68,20 +74,6 @@ class HomeController extends Controller
 
                 // Sum of all expenses
                 $totalExpenses = DB::table('expenses')->sum('amount');
-
-                // Total complaints count
-                $totalComplaints = DB::table('complains')->count();
-
-                // Unresolved complaints count (assuming unresolved status is anything other than 'Closed')
-                $unresolvedComplaints = DB::table('complains')
-                    ->where('status',  'Un-Resolved')
-                    ->count();
-
-
-                // Resolved complaints count (assuming resolved status is 'Closed')
-                $InprogressComplaints = DB::table('complains')
-                    ->where('status', 'In-Process')
-                    ->count();
 
                 // Total complaints count
                 $totalinvoicesgust = DB::table('guests')->count();
