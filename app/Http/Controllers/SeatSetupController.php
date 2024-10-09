@@ -55,10 +55,11 @@ class SeatSetupController extends Controller
     {
         if (Auth::id()) {
             $admin_id = Auth::id();
+            // dd($admin_id);
             // $Seats = Seat::where('admin_id', '=', $admin_id)->get();
             // dd($Seats);
             // Eager load the floor and room relationships
-            $Seats = Seat::with(['floor', 'room'])->get();
+            $Seats = Seat::where('admin_id', '=', $admin_id)->with(['floor', 'room'])->get();
             $floors = Floor::where('admin_id', '=', $admin_id)->get();
             // dd($floors);
 

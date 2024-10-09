@@ -17,12 +17,12 @@ class InvoiceController extends Controller
         if (Auth::id()) {
             $admin_id = Auth::id();
             // Fetch guests with 'check-out' status and their associated services
-            $guests = Guest::whereIn('status', ['Check-In', 'Check-Out'])
+            $guests = Guest::where('admin_id', '=', $admin_id)->whereIn('status', ['Check-In', 'Check-Out'])
                 ->with('services')
                 ->get();
 
 
-                
+
             // Calculate total charges for each guest
             foreach ($guests as $guest) {
                 // Convert string dates to Carbon instances
@@ -60,7 +60,7 @@ class InvoiceController extends Controller
 
         $leaseFrom = Carbon::parse($guest->lease_from);
         $leaseTo = Carbon::parse($guest->lease_to);
-        $stayDuration = $leaseTo->diffInDays($leaseFrom) + 1; 
+        $stayDuration = $leaseTo->diffInDays($leaseFrom) + 1;
 
 
         return response()->json([
@@ -77,7 +77,8 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function savePayment(Request $request) {
+    public function savePayment(Request $request)
+    {
         $invoice = new Invoice();
         $invoice->guest_id = $request->guest_id;
         $invoice->amount_paid = $request->amount_to_pay;
@@ -85,7 +86,7 @@ class InvoiceController extends Controller
         $invoice->due_amount = $request->remaining_due;
         $invoice->payment_date = now();
         $invoice->save();
-    
+
         return redirect()->back()->with('success', 'Payment received successfully.');
     }
 
@@ -94,10 +95,10 @@ class InvoiceController extends Controller
         if (Auth::id()) {
             $admin_id = Auth::id();
             // Fetch guests with 'check-out' status and their associated services
-            $guests = Guest::where('status', 'check-out')
+            $guests = Guest::where('admin_id', '=', $admin_id)->where('status', 'check-out')
                 ->with('services')
                 ->get();
-
+            // dd($guests);
             // Calculate total charges for each guest
             foreach ($guests as $guest) {
                 // Convert string dates to Carbon instances
@@ -170,6 +171,7 @@ class InvoiceController extends Controller
     public function store_payment(Request $request, $guestId)
     {
         // Retrieve the guest record
+        $admin_id = Auth::id();
         $guest = Guest::findOrFail($guestId);
 
         // Retrieve the payment amount from the request
@@ -181,6 +183,7 @@ class InvoiceController extends Controller
 
         // Store payment details in the Invoice table
         Invoice::create([
+            'admin_id' => $admin_id, // Store the Admin ID in the invoice
             'guest_id' => $guest->id, // Store the guest ID in the invoice
             'amount_paid' => $amountPaid, // Amount paid by the guest
             'payment_method' => $request->input('payment_method'), // Payment method used
@@ -201,7 +204,9 @@ class InvoiceController extends Controller
 
     public function showPaidInvoices()
     {
-        $paidInvoices = Invoice::with(['guest', 'guest.servicesinvoice']) // Assuming 'services' is the relationship in the Guest model
+        $admin_id = Auth::id();
+
+        $paidInvoices = Invoice::where('admin_id', '=', $admin_id)->with(['guest', 'guest.servicesinvoice']) // Assuming 'services' is the relationship in the Guest model
             ->where('due_amount', 0)
             ->get();
         // dd($paidInvoices);

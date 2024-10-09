@@ -51,7 +51,6 @@
                                             <th>Complaint Description</th>
                                             <th>Complaint Picture</th>
                                             <th>Status</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,11 +75,7 @@
                                                 @elseif($complain->status == 'Closed')
                                                 <span class="btn btn-success btn-sm">Closed</span>
                                                 @endif
-                                            <td>
-                                                <a href="#" class="btn btn-danger delete_complain" data-id="{{ $complain->id }}">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </a>
-                                            </td>
+                                           
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -26,7 +26,7 @@ class ComplainController extends Controller
     public function store_complain(Request $request)
     {
         if (Auth::id()) {
-            $admin_id = Auth()->user()->staff_id;
+            $guest_id = Auth()->user()->staff_id;
             // Handle the file upload
             $imageName = null;
             if ($request->hasFile('complaint_pic')) {
@@ -37,7 +37,7 @@ class ComplainController extends Controller
 
             // Create the Complain record
             $complain = Complain::create([
-                'admin_id' => $admin_id,
+                'guest_id' => $guest_id,
                 'complaint_title' => $request->complaint_title,
                 'complaint_date' => $request->complaint_date,
                 'complaint_type' => $request->complaint_type,
@@ -59,7 +59,8 @@ class ComplainController extends Controller
     {
         if (Auth::id()) {
             $admin_id = Auth::id();
-            $Complains = Complain::where('admin_id', '=', $admin_id)->get();
+            $guest_id = Auth()->user()->staff_id;
+            $Complains = Complain::where('guest_id', '=', $guest_id)->get();
             // dd($services);
             return view('guest_panel.complain_managment.complains', [
                 'Complains' => $Complains,

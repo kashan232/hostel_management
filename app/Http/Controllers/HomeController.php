@@ -131,7 +131,16 @@ class HomeController extends Controller
 
                 // Assuming you use Laravel's authentication system
                 // Count the complaints where the logged-in user's ID matches the 'admin_id'
-                $complaintCount = Complain::where('admin_id', $userId)->count();
+
+                $admin_id = Auth::id();
+
+                // Fetch all guests created by this admin
+                $guests = Guest::where('admin_id', $admin_id)->pluck('id'); // admin ke guests ke ids
+                // dd($guests);
+                // Fetch complaints of only the guests created by this admin
+                $complaintCount = Complain::whereIn('guest_id', $guests)->count();
+                
+                // $complaintCount = Complain::where('admin_id', $userId)->count();
 
                 // Get the total amount and count for guest services
                 $guestServices = GuestService::where('guest_id', $userId)->get();
@@ -168,8 +177,13 @@ class HomeController extends Controller
     {
         if (Auth::id()) {
             $admin_id = Auth::id();
-            $Complains = Complain::all();
-            // dd($services);
+
+            // Fetch all guests created by this admin
+            $guests = Guest::where('admin_id', $admin_id)->pluck('id'); // admin ke guests ke ids
+            // dd($guests);
+            // Fetch complaints of only the guests created by this admin
+            $Complains = Complain::whereIn('guest_id', $guests)->get();
+            // dd($Complains);
             return view('admin_panel.complain_managment.complains', [
                 'Complains' => $Complains,
             ]);

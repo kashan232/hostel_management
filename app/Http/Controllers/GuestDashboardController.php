@@ -86,7 +86,12 @@ class GuestDashboardController extends Controller
     {
         if (Auth::id()) {
             $admin_id = Auth::id();
-            $Notices = Notice::all();
+            // Fetch all guests created by this admin
+            $guest_id = Auth::user()->staff_id;
+            $admin_id_from_guest = Guest::where('id', $guest_id)->pluck('admin_id');
+            // dd($guests);
+            $Notices = Notice::where('admin_id', $admin_id_from_guest)->get();
+
             // dd($services);
             return view('guest_panel.notices_managment.notices', [
                 'Notices' => $Notices,
