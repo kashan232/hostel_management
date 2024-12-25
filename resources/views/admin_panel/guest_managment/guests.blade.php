@@ -219,6 +219,7 @@
                                             <th>Seat</th>
                                             <th>Room Charges</th>
                                             <th>Service Charges</th>
+                                            <th>Recurring Service Charges</th>
                                             <th>Total Charges</th>
                                             <th>Advance Payment</th> <!-- New column -->
                                             <th>Lease From</th>
@@ -235,8 +236,8 @@
                                                 {{ $guest->mobile }}
                                             </td>
                                             <td>{{ $guest->booking_date }}</td>
-                                            <td>{{ $guest->floor->floor_name }}</td>
-                                            <td>{{ $guest->room->room_number }}</td>
+                                            <td>{{ $guest->floor ? $guest->floor->floor_name : 'No floor assigned' }}</td>
+                                            <td>{{ $guest->room ? $guest->room->room_number : 'No room assigned' }}</td>
                                             <td>
                                                 @if($guest->seats->isNotEmpty())
                                                 @foreach($guest->seats as $seat)
@@ -248,6 +249,7 @@
                                             </td>
                                             <td>{{ $guest->room_charges }}</td>
                                             <td>{{ $guest->total_service_charges }}</td>
+                                            <td>{{ $guest->totalRecurringCharges }}</td>
                                             <td>{{ $guest->total_charges }}</td>
                                             <td>{{ $guest->advance_amount ?? 'N/A' }} <br> {{ $guest->advance_date ?? 'N/A' }}</td> <!-- New column -->
                                             <td>{{ $guest->lease_from }}</td>

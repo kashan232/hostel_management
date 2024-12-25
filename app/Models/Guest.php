@@ -60,4 +60,9 @@ class Guest extends Model
     {
         return $this->hasMany(RecurringService::class);
     }
+
+    public function recurringServicesguest()
+    {
+        return $this->hasMany(RecurringService::class, 'guest_id');
+    }
 }

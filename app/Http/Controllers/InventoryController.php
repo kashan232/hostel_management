@@ -76,8 +76,16 @@ class InventoryController extends Controller
 
     public function delete_inventory($id)
     {
-        $Inventory = Inventory::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Inventory is deleted successsfully');
-    }
+        // Attempt to find the inventory item by ID
+        $inventory = Inventory::find($id);
 
+        // Check if the inventory item exists
+        if ($inventory) {
+            $inventory->delete(); // Delete the inventory item
+            return redirect()->back()->with('delete-success', 'Inventory is deleted successfully');
+        } else {
+            // If the item does not exist, redirect with an error message
+            return redirect()->back()->with('error', 'Inventory item not found');
+        }
+    }
 }

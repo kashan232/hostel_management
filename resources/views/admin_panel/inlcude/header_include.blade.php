@@ -17,6 +17,7 @@
     <link href="{{ asset('vendor/wow-master/css/libs/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-select-country/css/bootstrap-select-country.min.css') }}">
+    <link href="{{ asset('/vendor/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{{ asset('vendor/jquery-nice-select/css/nice-select.css') }}">
     <link href="{{ asset('vendor/datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">

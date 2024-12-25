@@ -277,7 +277,7 @@
                 <div class="col-xl-8">
                     <div class="card">
                         <div class="card-header py-3 border-0 px-3">
-                            <h4 class="heading m-0">Rooms Deatails</h4>
+                            <h4 class="heading m-0">Rooms Details</h4>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive basic-tbl">
@@ -347,8 +347,8 @@
                                                 {{ $guest->mobile }}
                                             </td>
                                             <td>{{ $guest->booking_date }}</td>
-                                            <td>{{ $guest->floor->floor_name }}</td>
-                                            <td>{{ $guest->room->room_number }}</td>
+                                            <td>{{ $guest->floor ? $guest->floor->floor_name : 'No floor assigned' }}</td>
+                                            <td>{{ $guest->room ? $guest->room->room_number : 'No room assigned' }}</td>
                                             <td>
                                                 @if($guest->seats->isNotEmpty())
                                                 @foreach($guest->seats as $seat)

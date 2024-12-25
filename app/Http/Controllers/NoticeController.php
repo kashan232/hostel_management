@@ -76,8 +76,14 @@ class NoticeController extends Controller
 
     public function delete_notices($id)
     {
-        $Notice = Notice::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Notice is deleted successsfully');
+        $notice = Notice::find($id);
+    
+        if ($notice) {
+            $notice->delete();
+            return redirect()->back()->with('delete-success', 'Notice is deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'Notice not found');
+        }
     }
 
 }

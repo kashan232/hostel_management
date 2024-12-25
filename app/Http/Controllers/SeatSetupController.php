@@ -32,8 +32,7 @@ class SeatSetupController extends Controller
             $request->validate([
                 'floor_id' => 'required|exists:floors,id',
                 'room_id' => 'required|exists:rooms,id',
-                'seat_name' => 'required|string|max:255',
-                'status' => 'required|string|in:Available,Booked',
+                'seat_name' => 'required|string|max:255|unique:seats,seat_name',
             ]);
             $Seats = Seat::create([
                 'admin_id' => $admin_id,
@@ -98,7 +97,13 @@ class SeatSetupController extends Controller
 
     public function delete_seat($id)
     {
-        $Seat = Seat::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Seat is deleted successsfully');
+        $Seat = Seat::find($id); // Find the seat by ID
+
+        if ($Seat) {  // Check if the seat exists
+            $Seat->delete();  // If found, delete the seat
+            return redirect()->back()->with('delete-success', 'Seat is deleted successfully');
+        } else {
+            return redirect()->back()->with('delete-error', 'Seat not found'); // If not found, show error message
+        }
     }
 }

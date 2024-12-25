@@ -86,8 +86,15 @@ class FloorController extends Controller
 
     public function delete_floors($id)
     {
-        $Floor = Floor::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Floor is deleted successsfully');
+        $Floor = Floor::find($id);
+    
+        if ($Floor) {  // Check if the record exists
+            $Floor->delete();  // Delete the record
+            return redirect()->back()->with('delete-success', 'Floor deleted successfully');
+        } else {
+            return redirect()->back()->with('delete-error', 'Floor not found');
+        }
     }
+    
 
 }

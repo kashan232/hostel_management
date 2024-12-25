@@ -36,6 +36,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-12 col-lg-12">
+          <div class="pl-5 pr-5">
+            @error('email')
+            <h5 class="text-danger">{{ $message }}</h5>
+            @enderror
+          </div>
           <div class="card">
             <div class="card-header">
               <h4 class="card-title">Manage Staff</h4>
@@ -43,8 +48,12 @@
                 <i class="fa fa-plus"></i>
                 Add New
               </button>
+              
             </div>
+
             <div class="card-body">
+
+
               <div class="table-responsive">
                 <table id="example" class="display table" style="min-width: 845px">
                   <thead>
@@ -117,6 +126,8 @@
           <div class="mb-3">
             <label for="staffEmail" class="form-label">Email<span class="text-danger">*</span></label>
             <input type="email" class="form-control" id="staffEmail" name="email" required>
+
+
           </div>
           <div class="mb-3">
             <label for="staffRole" class="form-label">Role<span class="text-danger">*</span></label>
@@ -148,7 +159,7 @@
             <label for="exampleInputEmail1" class="form-label">Name<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
           </div>
-        
+
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email<span class="text-danger">*</span></label>
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp">

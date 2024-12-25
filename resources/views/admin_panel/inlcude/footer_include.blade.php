@@ -10,6 +10,8 @@
 <!--swiper-slider-->
 <script src="{{ asset('vendor/swiper/js/swiper-bundle.min.js') }}"></script>
 
+<script src="{{ asset('vendor/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins-init/select2-init.js') }}" type="text/javascript"></script>
 <!-- Datatable -->
 <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/plugins-init/datatables.init.js') }}"></script>

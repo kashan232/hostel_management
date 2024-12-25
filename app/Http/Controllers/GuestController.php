@@ -38,7 +38,7 @@ class GuestController extends Controller
         if (Auth::id()) {
             $userId = Auth::id();
             $guests = Guest::where('admin_id', $userId)
-                ->with(['floor', 'room', 'services'])
+                ->with(['floor', 'room', 'services', 'recurringServicesguest'])
                 ->get();
 
             // Compute total service charges and update guests' total charges
@@ -47,15 +47,33 @@ class GuestController extends Controller
                 $leaseFrom = Carbon::parse($guest->lease_from);
                 $leaseTo = Carbon::parse($guest->lease_to);
 
+                // Check if guest has an associated floor
+                if ($guest->floor) {
+                    $floorName = $guest->floor->floor_name;
+                } else {
+                    $floorName = 'No floor assigned';
+                }
+                if ($guest->room) {
+                    $roomNumber = $guest->room->room_number;
+                } else {
+                    $roomNumber = 'No room assigned';
+                }
+                
                 // Calculate the number of days for lease
                 $days = $leaseFrom->diffInDays($leaseTo);
 
                 // Calculate total service charges
                 $totalServiceCharges = $guest->services->sum('amount');
 
+                // Calculate total recurring charges
+                $totalRecurringCharges = $guest->recurringServicesguest->sum('amount');
+
+                // Assign total recurring charges to the guest object
+                $guest->totalRecurringCharges = $totalRecurringCharges;
+
                 // Calculate total charges (room charges multiplied by number of days + total service charges)
                 $guest->total_service_charges = $totalServiceCharges;
-                $guest->total_charges = ($guest->room_charges * $days) + $totalServiceCharges;
+                $guest->total_charges = ($guest->room_charges * $days) + $totalServiceCharges + $totalRecurringCharges;
             }
 
             $services = Service::where('admin_id', $userId)->get();
@@ -64,7 +82,6 @@ class GuestController extends Controller
             return redirect()->back();
         }
     }
-
 
 
     public function get_rooms(Request $request)

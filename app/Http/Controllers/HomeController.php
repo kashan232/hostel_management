@@ -101,6 +101,18 @@ class HomeController extends Controller
                     $leaseFrom = Carbon::parse($guest->lease_from);
                     $leaseTo = Carbon::parse($guest->lease_to);
 
+                    // Check if guest has an associated floor
+                    if ($guest->floor) {
+                        $floorName = $guest->floor->floor_name;
+                    } else {
+                        $floorName = 'No floor assigned';
+                    }
+                    if ($guest->room) {
+                        $roomNumber = $guest->room->room_number;
+                    } else {
+                        $roomNumber = 'No room assigned';
+                    }
+
                     // Calculate the number of days for lease
                     $days = $leaseFrom->diffInDays($leaseTo);
 
@@ -131,7 +143,7 @@ class HomeController extends Controller
                 // dd($guests);
                 // Fetch complaints of only the guests created by this admin
                 $complaintCount = Complain::whereIn('guest_id', $guests)->count();
-                
+
                 // $complaintCount = Complain::where('admin_id', $userId)->count();
 
                 // Get the total amount and count for guest services

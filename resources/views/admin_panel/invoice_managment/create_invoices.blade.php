@@ -32,7 +32,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="guest">Select Guest:</label>
-                                        <select id="guestSelect" name="guest_id" class="form-control">
+                                        <select id="single-select" name="guest_id" class="form-control">
                                             <option value="">Choose Guest</option>
                                             @foreach($guests as $guest)
                                             <option value="{{ $guest->id }}">{{ $guest->name }}</option>

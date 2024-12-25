@@ -31,6 +31,19 @@ class StaffController extends Controller
         if (Auth::id()) {
             $admin_id = Auth::id();
 
+            $request->validate([
+                'email' => [
+                    'required',
+                    'email',
+                    'max:255',
+                    function ($attribute, $value, $fail) {
+                        if (User::where('email', $value)->exists() || Staff::where('email', $value)->exists()) {
+                            $fail('The email has already been taken.');
+                        }
+                    },
+                ],
+            ]);
+
             // Create the staff record
             $Staff = Staff::create([
                 'admin_id' => $admin_id,
@@ -126,9 +139,16 @@ class StaffController extends Controller
 
     public function delete_staff($id)
     {
-        $Staff = Staff::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Staff deleted successsfully');
+        $Staff = Staff::find($id);
+
+        if ($Staff) {
+            $Staff->delete();
+            return redirect()->back()->with('delete-success', 'Staff deleted successfully');
+        } else {
+            return redirect()->back()->with('delete-error', 'Staff not found');
+        }
     }
+
 
     public function update_staff_salary(Request $request)
     {
@@ -148,7 +168,13 @@ class StaffController extends Controller
 
     public function delete_staff_salary($id)
     {
-        $StaffSalary = StaffSalary::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Staff Salary deleted successsfully');
+        $StaffSalary = StaffSalary::find($id);
+
+        if ($StaffSalary) {
+            $StaffSalary->delete();
+            return redirect()->back()->with('delete-success', 'Staff Salary deleted successfully');
+        } else {
+            return redirect()->back()->with('delete-error', 'Staff Salary not found');
+        }
     }
 }

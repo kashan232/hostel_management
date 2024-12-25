@@ -74,7 +74,13 @@ class ServiceController extends Controller
 
     public function delete_service($id)
     {
-        $Service = Service::find($id)->delete();
-        return redirect()->back()->with('delete-success', 'Service is deleted successsfully');
+        $Service = Service::find($id);
+
+        if ($Service) {
+            $Service->delete();
+            return redirect()->back()->with('delete-success', 'Service deleted successfully');
+        } else {
+            return redirect()->back()->with('delete-error', 'Service not found');
+        }
     }
 }

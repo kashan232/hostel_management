@@ -19,6 +19,9 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Floor Name</label>
+                                            @error('floor_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                             <select class="form-control" name="floor_id" id="floorSelect" required>
                                                 <option disabled selected>Select floor</option>
                                                 @foreach($floors as $floor)
@@ -38,6 +41,9 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-12">
                                             <label class="form-label">Rooms</label>
+                                            @error('room_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                             <div id="roomRadioGroup">
                                                 <!-- Radio buttons for rooms will be appended here -->
                                             </div>
@@ -46,7 +52,11 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-12 mt-3">
                                             <label class="form-label">Seat Name</label>
+                                           
                                             <input type="text" class="form-control" name="seat_name">
+                                            @error('seat_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Add Seat</button>
